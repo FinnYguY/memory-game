@@ -1,0 +1,16 @@
+$green: #8cff66;
+$font: Lucida Sans Unicode;
+
+body {
+  font-family: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#appendDiv {
+  background-color: $green;
+  padding: 20px;
+  margin: 20px;
+  border: 2px solid black;
+  border-radius: 15px;
+}
