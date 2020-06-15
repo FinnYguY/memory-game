@@ -1,0 +1,10 @@
+#node modules
+node_modules/
+
+#package config files
+package.json
+package-lock.json
+webpack.config.js
+
+#dist files
+dist/main.js
