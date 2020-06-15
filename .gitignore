@@ -5,6 +5,3 @@ node_modules/
 package.json
 package-lock.json
 webpack.config.js
-
-#dist files
-memory-game-project/dist/main.js
