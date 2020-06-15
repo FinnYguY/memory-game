@@ -7,4 +7,4 @@ package-lock.json
 webpack.config.js
 
 #dist files
-dist/main.js
+memory-game-project/dist/main.js
