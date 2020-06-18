@@ -2,7 +2,7 @@ const writer = require('.\\writer');
 import '.\\styles.scss'
 
 let div = document.createElement('div');
-div.id = 'appendDiv'
+div.className = 'appendDiv'
 document.body.prepend(div);
 
 writer.addText('appendDiv', 'Hello World!');

@@ -1,4 +1,6 @@
-exports.addText = function (elemId, text) {
-  let elem = document.getElementById(elemId);
-  elem.innerText = text;
+exports.addText = function (elemClass, text) {
+  let elems = document.getElementsByClassName(elemClass);
+  Array.from(elems).forEach((el) => {
+    el.innerText = text;
+  });
 }
