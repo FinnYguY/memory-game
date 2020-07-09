@@ -1,0 +1,244 @@
+$font: Lucida Sans Unicode;
+$lightblueBg: 'https://www.tutorialchip.com/wp-content/uploads/2011/06/Blue-Pattern.jpg';
+$brownButtonColor: #ba8178;
+$brownButtonColorActive: #874e45;
+$scrollbarTrack: #559FB4;
+$scrollbarThumbHover: #a86257;
+$cardBg: 'https://i.pinimg.com/originals/dd/6d/c8/dd6dc8a6b6db1b6f4b01bd1bcc891621.jpg';
+
+//Gradients
+
+$red: 'https://wallpaperaccess.com/full/1092608.jpg';
+$lightred: 'https://www.xmple.com/wallpaper/red-linear-gradient-1920x1080-c2-f7b6ba-ff3551-a-255-f-14.svg';
+$blue: 'https://www.codeproduction.ro/wp-content/uploads/2019/10/blue-gradient-background-flip.jpg';
+$darkblue: 'https://www.xmple.com/wallpaper/blue-linear-gradient-1920x1080-c2-0e1350-1924b5-a-105-f-14.svg';
+$lightblue: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/24/Light-Blue-Gradient-Background-Graphics-3943096-1.jpg';
+$green: 'https://www.publicdomainpictures.net/pictures/130000/velka/green-gradient-background-14396421286T3.jpg';
+$lightgreen: 'https://www.xmple.com/wallpaper/linear-white-green-gradient-1920x1080-c2-90ee90-ffffff-a-225-f-14.svg';
+$darkgreen: 'https://wallpaperaccess.com/full/1155040.jpg';
+$pink: 'https://marketplace.canva.com/EADaoybWY-0/1/0/1600w/canva-pink-gradient-background-r-IBZZOU0tA.jpg';
+$purple: 'https://www.creativefabrica.com/wp-content/uploads/2020/02/01/Purple-Gradient-Background-Graphics-1.jpg';
+$yellow: 'https://www.xmple.com/wallpaper/yellow-gradient-orange-linear-1920x1080-c2-f1e50c-f14e0c-a-120-f-14.svg';
+$brown: 'https://i.pinimg.com/originals/25/8c/b4/258cb46eaf963d9b202cd9c18d504dcf.jpg';
+$cyan: 'https://www.xmple.com/wallpaper/cyan-gradient-linear-blue-1920x1080-c2-616c99-2fdfc2-a-45-f-14.svg';
+$lightgray: 'https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-gray-gradient-sharp-tool-psd-layered-main-picture-background-material-image_157567.jpg';
+$darkgray: 'https://www.xmple.com/wallpaper/black-grey-gradient-linear-1920x1080-c2-000000-a9a9a9-a-210-f-14.svg';
+$peachy: 'https://ih1.redbubble.net/image.1007407365.6859/flat,750x1000,075,f.jpg';
+$whiteGreen: 'http://kilifimoringa-europe.com/wp-content/uploads/2018/03/linear-white-green-gradient-1920x1080-c2-90ee90-f0f8ff-a-90-f-14-1024x576.jpg';
+$martini: 'https://www.xmple.com/wallpaper/yellow-green-gradient-linear-1920x1080-c2-ffff00-98fb98-a-240-f-14.svg';
+
+body{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 18px;
+  font-family: $font;
+  background-image: url($lightblueBg);
+  background-size: contain;
+
+  .flex{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .noclick{pointer-events: none;}
+
+  .msgDiv{
+    position: absolute;
+    align-self: center;
+    width: 99%;
+    height: 99%;
+    backdrop-filter: brightness(50%) blur(2px);
+    color: white;
+    z-index: 1;
+  }
+
+  .msgDiv p{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+  }
+
+  .blurredSpan{
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    height: 26px;
+    margin: 5px 5px 10px;
+  }
+
+  .gameField{
+    border: 3px solid black;
+    border-radius: 10px;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: space-around;
+    width: 300px;
+    height: 430px;
+    backdrop-filter: blur(1.5px);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+  }
+
+  .card{
+    background-image: url($cardBg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 97.5px;
+    border: 2px solid black;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .card1{background-image: url($red);}
+  .card2{background-image: url($blue);}
+  .card3{background-image: url($green);}
+  .card4{background-image: url($pink);}
+  .card5{background-image: url($purple);}
+  .card6{background-image: url($yellow);}
+  .card7{background-image: url($brown);}
+  .card8{background-image: url($cyan);}
+  .card9{background-image: url($lightred);}
+  .card10{background-image: url($peachy);}
+  .card11{background-image: url($lightgray);}
+  .card12{background-image: url($darkgray);}
+  .card13{background-image: url($lightblue);}
+  .card14{background-image: url($darkblue);}
+  .card15{background-image: url($lightgreen);}
+  .card16{background-image: url($darkgreen);}
+  .card17{background-image: url($martini);}
+  .card18{background-image: url($whiteGreen);}
+
+  .card:hover{
+    filter: brightness(90%);
+    box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.5);
+    transition: 0.1s;
+  }
+
+  .cardBack{
+    background-image: url($cardBg);
+  }
+
+  .emptyCard{visibility: hidden;}
+
+  .menuBlock{
+    width: 80%;
+    flex-wrap: nowrap;
+  }
+
+  .menuBlockButton{
+    cursor: pointer;
+    font-size: 17px;
+    font-family: $font;
+    background-color: $brownButtonColor;
+    color: black;
+    width: 180px;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .menuBlockButton:hover{
+    box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.5);
+    transition: 0.1s;
+  }
+
+  .menuBlockButton:active{
+    background-color: $brownButtonColorActive;
+  }
+
+  .fieldSelectorDiv{
+    width: 80%;
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: bold;
+  }
+
+  .fieldSelector{
+    appearance: none;
+    cursor: pointer;
+    background-color: $brownButtonColor;
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 30px;
+    margin-top: 4px;
+    outline: none;
+  }
+
+  .fieldSelector:hover{
+    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
+    transition: 0.1s;
+  }
+
+  .fieldSelector:focus{
+    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
+  }
+
+  .fieldSelectorButton{
+    cursor: pointer;
+    font-size: 17px;
+    font-family: $font;
+    background-color: $brownButtonColor;
+    color: black;
+    height: 30px;
+    margin: 4px 5px 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .fieldSelectorButton:hover{
+    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
+    transition: 0.1s;
+  }
+
+  .fieldSelectorButton:active{
+    background-color: $brownButtonColorActive;
+  }
+
+  .timeNturnsBlock{
+    font-weight: bold;
+    width: 80%;
+  }
+
+  .timeNturnsBlockButton{
+    font-size: 17px;
+    font-family: inherit;
+    font-weight: bold;
+    color: black;
+    width: 51px;
+    height: 18px;
+    margin: 7px 5px 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $scrollbarTrack;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $brownButtonColor;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $scrollbarThumbHover;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: $brownButtonColor;
+}
