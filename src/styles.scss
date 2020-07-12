@@ -8,24 +8,24 @@ $cardBg: 'https://i.pinimg.com/originals/dd/6d/c8/dd6dc8a6b6db1b6f4b01bd1bcc8916
 
 //Gradients
 
-$red: 'https://wallpaperaccess.com/full/1092608.jpg';
-$lightred: 'https://www.xmple.com/wallpaper/red-linear-gradient-1920x1080-c2-f7b6ba-ff3551-a-255-f-14.svg';
-$blue: 'https://www.codeproduction.ro/wp-content/uploads/2019/10/blue-gradient-background-flip.jpg';
-$darkblue: 'https://www.xmple.com/wallpaper/blue-linear-gradient-1920x1080-c2-0e1350-1924b5-a-105-f-14.svg';
-$lightblue: 'https://www.creativefabrica.com/wp-content/uploads/2020/04/24/Light-Blue-Gradient-Background-Graphics-3943096-1.jpg';
-$green: 'https://www.publicdomainpictures.net/pictures/130000/velka/green-gradient-background-14396421286T3.jpg';
-$lightgreen: 'https://www.xmple.com/wallpaper/linear-white-green-gradient-1920x1080-c2-90ee90-ffffff-a-225-f-14.svg';
-$darkgreen: 'https://wallpaperaccess.com/full/1155040.jpg';
-$pink: 'https://marketplace.canva.com/EADaoybWY-0/1/0/1600w/canva-pink-gradient-background-r-IBZZOU0tA.jpg';
-$purple: 'https://www.creativefabrica.com/wp-content/uploads/2020/02/01/Purple-Gradient-Background-Graphics-1.jpg';
-$yellow: 'https://www.xmple.com/wallpaper/yellow-gradient-orange-linear-1920x1080-c2-f1e50c-f14e0c-a-120-f-14.svg';
-$brown: 'https://i.pinimg.com/originals/25/8c/b4/258cb46eaf963d9b202cd9c18d504dcf.jpg';
-$cyan: 'https://www.xmple.com/wallpaper/cyan-gradient-linear-blue-1920x1080-c2-616c99-2fdfc2-a-45-f-14.svg';
-$lightgray: 'https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-gray-gradient-sharp-tool-psd-layered-main-picture-background-material-image_157567.jpg';
-$darkgray: 'https://www.xmple.com/wallpaper/black-grey-gradient-linear-1920x1080-c2-000000-a9a9a9-a-210-f-14.svg';
-$peachy: 'https://ih1.redbubble.net/image.1007407365.6859/flat,750x1000,075,f.jpg';
-$rasta: 'https://cdn.wallpapersafari.com/68/90/RLhwBu.jpg';
-$martini: 'https://www.xmple.com/wallpaper/yellow-green-gradient-linear-1920x1080-c2-ffff00-98fb98-a-240-f-14.svg';
+$red: linear-gradient(45deg, rgba(69,1,2,1) 0%, rgba(255,0,66,1) 50%, rgba(69,1,2,1) 100%);
+$lightred: linear-gradient(45deg, rgba(254,64,90,1) 0%, rgba(247,182,186,1) 50%, rgba(254,64,90,1) 100%);
+$blue: linear-gradient(45deg, rgba(47,55,153,1) 0%, rgba(2,245,251,1) 50%, rgba(47,55,153,1) 100%);
+$darkblue: linear-gradient(45deg, rgba(12,16,60,1) 0%, rgba(12,25,219,1) 50%, rgba(14,19,80,1) 100%);
+$lightblue: linear-gradient(45deg, rgba(99,116,208,1) 0%, rgba(208,237,255,1) 50%, rgba(99,116,208,1) 100%);
+$green: linear-gradient(45deg, rgba(10,53,8,1) 0%, rgba(78,243,79,1) 50%, rgba(10,53,8,1) 100%);
+$lightgreen: linear-gradient(45deg, rgba(120,255,214,1) 0%, rgba(168,255,120,1) 50%, rgba(120,255,214,1) 100%);
+$darkgreen: linear-gradient(45deg, rgba(23,46,25,1) 0%, rgba(27,138,26,1) 50%, rgba(23,46,25,1) 100%);
+$pink: linear-gradient(45deg, rgba(219,24,182,1) 0%, rgba(255,200,252,1) 50%, rgba(219,24,182,1) 100%);
+$purple: linear-gradient(45deg, rgba(65,39,173,1) 0%, rgba(213,154,238,1) 50%, rgba(65,39,173,1) 100%);
+$yellow: linear-gradient(45deg, rgba(255,252,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,252,0,1) 100%);
+$brown: linear-gradient(45deg, rgba(51,40,27,1) 0%, rgba(156,100,41,1) 50%, rgba(51,40,27,1) 100%);
+$cyan: linear-gradient(45deg, rgba(255,252,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,252,0,1) 100%);
+$lightgray: linear-gradient(45deg, rgba(108,107,113,1) 0%, rgba(207,207,207,1) 50%, rgba(108,107,113,1) 100%);
+$darkgray: linear-gradient(45deg, rgba(31,28,44,1) 0%, rgba(146,141,171,1) 50%, rgba(31,28,44,1) 100%);
+$peachy: linear-gradient(45deg, rgba(65,94,249,1) 0%, rgba(248,71,110,1) 50%, rgba(65,94,249,1) 100%);
+$purpleBlue: linear-gradient(45deg, rgba(203,48,102,1) 10%, rgba(22,191,253,1) 50%, rgba(203,48,102,1) 90%);
+$martini: linear-gradient(45deg, rgba(36,254,65,1) 0%, rgba(253,252,71,1) 50%, rgba(36,254,65,1) 100%);
 
 body{
   display: flex;
@@ -118,24 +118,24 @@ body{
     position: relative;
   }
 
-  .card1{background-image: url($red);}
-  .card2{background-image: url($blue);}
-  .card3{background-image: url($green);}
-  .card4{background-image: url($pink);}
-  .card5{background-image: url($purple);}
-  .card6{background-image: url($yellow);}
-  .card7{background-image: url($brown);}
-  .card8{background-image: url($cyan);}
-  .card9{background-image: url($lightred);}
-  .card10{background-image: url($peachy);}
-  .card11{background-image: url($lightgray);}
-  .card12{background-image: url($darkgray);}
-  .card13{background-image: url($lightblue);}
-  .card14{background-image: url($darkblue);}
-  .card15{background-image: url($lightgreen);}
-  .card16{background-image: url($darkgreen);}
-  .card17{background-image: url($martini);}
-  .card18{background-image: url($rasta);}
+  .card1{background-image: $red}
+  .card2{background-image: $blue;}
+  .card3{background-image: $green;}
+  .card4{background-image: $pink;}
+  .card5{background-image: $purple;}
+  .card6{background-image: $yellow;}
+  .card7{background-image: $brown;}
+  .card8{background-image: $cyan;}
+  .card9{background-image: $lightred;}
+  .card10{background-image: $peachy;}
+  .card11{background-image: $lightgray;}
+  .card12{background-image: $darkgray;}
+  .card13{background-image: $lightblue;}
+  .card14{background-image: $darkblue;}
+  .card15{background-image: $lightgreen;}
+  .card16{background-image: $darkgreen;}
+  .card17{background-image: $martini;}
+  .card18{background-image: $purpleBlue;}
 
   .card:hover{
     filter: brightness(90%);
