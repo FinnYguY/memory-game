@@ -14,17 +14,17 @@ $blue: linear-gradient(45deg, rgba(47,55,153,1) 0%, rgba(2,245,251,1) 50%, rgba(
 $darkblue: linear-gradient(45deg, rgba(12,16,60,1) 0%, rgba(12,25,219,1) 50%, rgba(14,19,80,1) 100%);
 $lightblue: linear-gradient(45deg, rgba(99,116,208,1) 0%, rgba(208,237,255,1) 50%, rgba(99,116,208,1) 100%);
 $green: linear-gradient(45deg, rgba(10,53,8,1) 0%, rgba(78,243,79,1) 50%, rgba(10,53,8,1) 100%);
-$lightgreen: linear-gradient(45deg, rgba(120,255,214,1) 0%, rgba(168,255,120,1) 50%, rgba(120,255,214,1) 100%);
-$darkgreen: linear-gradient(45deg, rgba(23,46,25,1) 0%, rgba(27,138,26,1) 50%, rgba(23,46,25,1) 100%);
+$yellowBlue: linear-gradient(45deg, rgba(64,59,74,1) 5%, rgba(224,228,138,1) 50%, rgba(64,59,74,1) 95%);
+$mojito: linear-gradient(45deg, rgba(29,151,108,1) 0%, rgba(147,249,185,1) 50%, rgba(29,151,108,1) 100%);
 $pink: linear-gradient(45deg, rgba(219,24,182,1) 0%, rgba(255,200,252,1) 50%, rgba(219,24,182,1) 100%);
 $purple: linear-gradient(45deg, rgba(65,39,173,1) 0%, rgba(213,154,238,1) 50%, rgba(65,39,173,1) 100%);
 $yellow: linear-gradient(45deg, rgba(255,252,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,252,0,1) 100%);
 $brown: linear-gradient(45deg, rgba(51,40,27,1) 0%, rgba(156,100,41,1) 50%, rgba(51,40,27,1) 100%);
-$cyan: linear-gradient(45deg, rgba(255,252,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,252,0,1) 100%);
+$orange: linear-gradient(45deg, rgba(241,39,17,1) 0%, rgba(245,175,25,1) 50%, rgba(241,39,17,1) 100%);
 $lightgray: linear-gradient(45deg, rgba(108,107,113,1) 0%, rgba(207,207,207,1) 50%, rgba(108,107,113,1) 100%);
 $darkgray: linear-gradient(45deg, rgba(31,28,44,1) 0%, rgba(146,141,171,1) 50%, rgba(31,28,44,1) 100%);
 $peachy: linear-gradient(45deg, rgba(65,94,249,1) 0%, rgba(248,71,110,1) 50%, rgba(65,94,249,1) 100%);
-$purpleBlue: linear-gradient(45deg, rgba(203,48,102,1) 10%, rgba(22,191,253,1) 50%, rgba(203,48,102,1) 90%);
+$darkPurple: linear-gradient(45deg, rgba(51,0,27,1) 0%, rgba(255,0,132,1) 50%, rgba(51,0,27,1) 100%);
 $martini: linear-gradient(45deg, rgba(36,254,65,1) 0%, rgba(253,252,71,1) 50%, rgba(36,254,65,1) 100%);
 
 body{
@@ -125,17 +125,17 @@ body{
   .card5{background-image: $purple;}
   .card6{background-image: $yellow;}
   .card7{background-image: $brown;}
-  .card8{background-image: $cyan;}
+  .card8{background-image: $orange;}
   .card9{background-image: $lightred;}
   .card10{background-image: $peachy;}
   .card11{background-image: $lightgray;}
   .card12{background-image: $darkgray;}
   .card13{background-image: $lightblue;}
   .card14{background-image: $darkblue;}
-  .card15{background-image: $lightgreen;}
-  .card16{background-image: $darkgreen;}
+  .card15{background-image: $yellowBlue;}
+  .card16{background-image: $mojito;}
   .card17{background-image: $martini;}
-  .card18{background-image: $purpleBlue;}
+  .card18{background-image: $darkPurple;}
 
   .card:hover{
     filter: brightness(90%);
