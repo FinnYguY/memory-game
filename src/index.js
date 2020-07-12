@@ -16,8 +16,6 @@ document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('op
 document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('option', '', '6x6', 'value', '3'));
 document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('button', 'fieldSelectorButton', 'Confirm'));
 document.getElementsByClassName('fieldSelectorButton')[0].addEventListener('click', writer.changeFieldSize);
-document.getElementsByClassName('fieldSelectorButton')[0].addEventListener('click', writer.stopTurns);
-document.getElementsByClassName('fieldSelectorButton')[0].addEventListener('click', writer.startStop);
 
 //creating timeNturnsBlock with buttons
 document.body.append(writer.createHtml('div', 'timeNturnsBlock flex'));
@@ -31,6 +29,15 @@ document.body.append(writer.createHtml('div', 'gameField flex'));
 
 window.onload = writer.addCards(16);
 
+//creating welcome message
+window.onload = writer.showMsg('<b>Welcome to the <br> "Memory Game"</b><br>Pair the cards by taking 2 of them per turn until the game field is empty');
+
+window.onload = document.getElementsByClassName('msgDiv')[0].append(writer.createHtml('button', 'msgButton', 'Get me started!'));
+
+document.getElementsByClassName('msgButton')[0].addEventListener('click', () => {
+  document.getElementsByClassName('msgDiv')[0].remove();
+});
+
 //configuring the mutation observer for delegation to work properly
 var field = document.getElementsByTagName('body')[0];
 
@@ -41,5 +48,8 @@ const config = {
 const observer = new MutationObserver(writer.callback);
 observer.observe(field, config);
 
-// document.getElementsByClassName('gameField')[0].prepend(writer.createHtml('div', 'msgDiv'));
-// document.getElementsByClassName('msgDiv')[0].prepend(writer.createHtml('p', '', 'CONGRATS'));
+
+
+// let time = document.getElementsByClassName('stopwatch')[0].value;
+// let turns = document.getElementsByClassName('turnsCounter')[0].value;
+// writer.showMsg(`<b>Congratulations!</b><br>You revealed all the cards in ${time} and ${turns}`);

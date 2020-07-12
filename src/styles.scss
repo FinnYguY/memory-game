@@ -24,7 +24,7 @@ $cyan: 'https://www.xmple.com/wallpaper/cyan-gradient-linear-blue-1920x1080-c2-6
 $lightgray: 'https://png.pngtree.com/thumb_back/fw800/back_our/20190620/ourmid/pngtree-gray-gradient-sharp-tool-psd-layered-main-picture-background-material-image_157567.jpg';
 $darkgray: 'https://www.xmple.com/wallpaper/black-grey-gradient-linear-1920x1080-c2-000000-a9a9a9-a-210-f-14.svg';
 $peachy: 'https://ih1.redbubble.net/image.1007407365.6859/flat,750x1000,075,f.jpg';
-$whiteGreen: 'http://kilifimoringa-europe.com/wp-content/uploads/2018/03/linear-white-green-gradient-1920x1080-c2-90ee90-f0f8ff-a-90-f-14-1024x576.jpg';
+$rasta: 'https://cdn.wallpapersafari.com/68/90/RLhwBu.jpg';
 $martini: 'https://www.xmple.com/wallpaper/yellow-green-gradient-linear-1920x1080-c2-ffff00-98fb98-a-240-f-14.svg';
 
 body{
@@ -47,10 +47,10 @@ body{
   .msgDiv{
     position: absolute;
     align-self: center;
-    width: 99%;
-    height: 99%;
-    backdrop-filter: brightness(50%) blur(2px);
-    color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
     z-index: 1;
   }
 
@@ -62,6 +62,30 @@ body{
     text-align: center;
     height: 100%;
     margin: 0;
+  }
+
+  .msgButton{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    cursor: pointer;
+    font-size: 17px;
+    font-family: $font;
+    background-color: $brownButtonColor;
+    color: black;
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .msgButton:hover{
+    box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.5);
+    transition: 0.1s;
+  }
+
+  .msgButton:active{
+    background-color: $brownButtonColorActive;
   }
 
   .blurredSpan{
@@ -79,7 +103,7 @@ body{
     justify-content: space-around;
     width: 300px;
     height: 430px;
-    backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(1px);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
   }
 
@@ -111,7 +135,7 @@ body{
   .card15{background-image: url($lightgreen);}
   .card16{background-image: url($darkgreen);}
   .card17{background-image: url($martini);}
-  .card18{background-image: url($whiteGreen);}
+  .card18{background-image: url($rasta);}
 
   .card:hover{
     filter: brightness(90%);
@@ -123,7 +147,7 @@ body{
     background-image: url($cardBg);
   }
 
-  .emptyCard{visibility: hidden;}
+  .invisible{opacity: 0; transition: 0.5s;}
 
   .menuBlock{
     width: 80%;
