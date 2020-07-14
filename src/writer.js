@@ -62,13 +62,13 @@ export function showMsg(msg) {
 var emptyCardNumber = 0;
 export function compareCards(card1, card2) {
   if (card1.classList[1] == card2.classList[1]) {
-    setTimeout(() => {card1.classList.add('invisible', 'noclick');}, 500);
-    setTimeout(() => {card2.classList.add('invisible', 'noclick');}, 500);
+    setTimeout(() => {card1.classList.add('invisible', 'noclick');}, 300);
+    setTimeout(() => {card2.classList.add('invisible', 'noclick');}, 300);
     emptyCardNumber += 2;
   } else {
     card1.classList.remove('noclick');
     card2.classList.remove('noclick');
-    setTimeout(toggleCard, 500, card1, card2);
+    setTimeout(toggleCard, 300, card1, card2);
   }
 }
 
@@ -128,22 +128,22 @@ export const callback = function(mutationsList, observer) {
       if (faceUpCounter >= 2) {
         document.getElementsByClassName('gameField')[0].classList.add('noclick');
         setTimeout(() => {document.getElementsByClassName('gameField')[0].classList.remove('noclick')}, 500);
+        document.getElementsByClassName('turnsCounter')[0].value++;
         compareCards(target, faceUpCard1);
 
         let cards = document.getElementsByClassName('card');
         if (emptyCardNumber == classArrLength) {
           let time = document.getElementsByClassName('stopwatch')[0].value;
           let turns = document.getElementsByClassName('turnsCounter')[0].value;
-          showMsg(`<b>Congratulations!</b><br>You paired all the cards in ${time} and ${turns} turns`);
+          setTimeout(function () {
+            showMsg(`<b>Congratulations!</b><br>You paired all the cards in ${time} and ${turns} turns`);
+          }, 300);
           startStop();
           stopTurns();
-          faceUpCounter = 0;
           emptyCardNumber = 0;
-          return;
         }
 
         faceUpCounter = 0;
-        document.getElementsByClassName('turnsCounter')[0].value++;
         return;
       }
       faceUpCard1 = target;

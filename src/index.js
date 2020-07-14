@@ -30,13 +30,13 @@ document.body.append(writer.createHtml('div', 'gameField flex'));
 window.onload = writer.addCards(16);
 
 //creating welcome message
-window.onload = writer.showMsg('<b>Welcome to the <br> "Memory Game"</b><br>Pair the cards by taking 2 of them per turn until the game field is empty');
+// window.onload = writer.showMsg('<b>Welcome to the <br> "Memory Game"</b><br>Pair the cards by taking 2 of them per turn until the game field is empty');
 
-window.onload = document.getElementsByClassName('msgDiv')[0].append(writer.createHtml('button', 'msgButton', 'Get me started!'));
+// window.onload = document.getElementsByClassName('msgDiv')[0].append(writer.createHtml('button', 'msgButton', 'Get me started!'));
 
-document.getElementsByClassName('msgButton')[0].addEventListener('click', () => {
-  document.getElementsByClassName('msgDiv')[0].remove();
-});
+// document.getElementsByClassName('msgButton')[0].addEventListener('click', () => {
+//   document.getElementsByClassName('msgDiv')[0].remove();
+// });
 
 //configuring the mutation observer for delegation to work properly
 var field = document.getElementsByTagName('body')[0];
@@ -47,9 +47,3 @@ const config = {
 
 const observer = new MutationObserver(writer.callback);
 observer.observe(field, config);
-
-
-
-// let time = document.getElementsByClassName('stopwatch')[0].value;
-// let turns = document.getElementsByClassName('turnsCounter')[0].value;
-// writer.showMsg(`<b>Congratulations!</b><br>You revealed all the cards in ${time} and ${turns}`);

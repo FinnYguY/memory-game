@@ -116,6 +116,7 @@ body{
     border: 2px solid black;
     border-radius: 10px;
     position: relative;
+    transition: 0.3s;
   }
 
   .card1{background-image: $red}
@@ -140,14 +141,14 @@ body{
   .card:hover{
     filter: brightness(90%);
     box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.5);
-    transition: 0.1s;
   }
 
   .cardBack{
     background-image: url($cardBg);
+    transform: rotateY(180deg);
   }
 
-  .invisible{opacity: 0; transition: 0.5s;}
+  .invisible{opacity: 0; transition: 0.3s;}
 
   .menuBlock{
     width: 80%;
