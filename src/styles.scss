@@ -52,6 +52,7 @@ body{
     border-radius: 10px;
     background: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
     z-index: 1;
+    transition: 1s;
   }
 
   .msgDiv p{
@@ -116,8 +117,20 @@ body{
     border: 2px solid black;
     border-radius: 10px;
     position: relative;
-    transition: 0.3s;
+    transition: 0.1s;
+    transition: transform 0.3s;
   }
+
+  // @media screen and (max-width: 340px) {
+  //   .card {
+  //     width: 40px;
+  //     height: 65px;
+  //   }
+  //   .gameField {
+  //     width: 70%;
+  //     height: auto;
+  //   }
+  // }
 
   .card1{background-image: $red}
   .card2{background-image: $blue;}
@@ -231,7 +244,7 @@ body{
 
   .timeNturnsBlock{
     font-weight: bold;
-    width: 80%;
+    width: 90%;
   }
 
   .timeNturnsBlockButton{
@@ -244,6 +257,27 @@ body{
     margin: 7px 5px 10px;
     border: 2px solid black;
     border-radius: 5px;
+  }
+
+  .infoBlock{
+    backdrop-filter: blur(1px);
+    border-radius: 10px;
+  }
+
+  .leaderBoardButton{
+    position: absolute;
+    right: 5px;
+    top: 0;
+  }
+
+
+  @media screen and (min-width: 730px) {
+    .infoBlock {
+      position: absolute;
+      left: 5px;
+      top: 0;
+      width: 25%;
+    }
   }
 }
 

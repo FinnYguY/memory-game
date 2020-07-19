@@ -68,7 +68,7 @@ export function compareCards(card1, card2) {
   } else {
     card1.classList.remove('noclick');
     card2.classList.remove('noclick');
-    setTimeout(toggleCard, 300, card1, card2);
+    setTimeout(toggleCard, 400, card1, card2);
   }
 }
 
@@ -89,9 +89,14 @@ export function changeFieldSize () {
     stopTurns();
     isFirstClick = true;
 
+    showMsg('<b>Shuffling...</b>');
+    setTimeout(function () {
+      document.getElementsByClassName('msgDiv')[0].remove();
+    }, 1000);
+
     switch (el.value) {
       case '1':
-      addCards(16);
+        addCards(16);
         break;
       case '2':
         field.style.width = '375px';
@@ -127,7 +132,7 @@ export const callback = function(mutationsList, observer) {
       //if two cards are faced up
       if (faceUpCounter >= 2) {
         document.getElementsByClassName('gameField')[0].classList.add('noclick');
-        setTimeout(() => {document.getElementsByClassName('gameField')[0].classList.remove('noclick')}, 500);
+        setTimeout(() => {document.getElementsByClassName('gameField')[0].classList.remove('noclick')}, 200);
         document.getElementsByClassName('turnsCounter')[0].value++;
         compareCards(target, faceUpCard1);
 
@@ -138,6 +143,17 @@ export const callback = function(mutationsList, observer) {
           setTimeout(function () {
             showMsg(`<b>Congratulations!</b><br>You paired all the cards in ${time} and ${turns} turns`);
           }, 300);
+
+          // let bestResultNumber = Number(localStorage.key(localStorage.length));
+          // let bestResult = {
+          //   'time': time,
+          //   'turns': turns,
+          // }
+          // console.log(bestResult);
+          // localStorage.setItem(`${bestResultNumber}`, JSON.stringify(bestResult));
+          // bestResultNumber += 1;
+          // document.getElementsByClassName('leaderBoard')[0].innerHTML += localStorage.getItem(bestResultNumber);
+
           startStop();
           stopTurns();
           emptyCardNumber = 0;
@@ -150,6 +166,14 @@ export const callback = function(mutationsList, observer) {
     }
   }
 };
+
+// export function showLeaderBoard() {
+//   let resultsArray = [];
+//   for (let i = 1; i < localStorage.length; i++) {
+//     resultsArray.push(JSON.parse(localStorage.getItem(i)));
+//   }
+//   console.log(resultsArray);
+// }
 
 //Stopwatch initiaization and functions
 var base = 60;
