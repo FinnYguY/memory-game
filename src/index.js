@@ -25,7 +25,7 @@ document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('
 document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('input', 'timeNturnsBlockButton turnsCounter', '', 'value', '0', 'disabled', 'true'));
 
 //creating gameField
-document.body.append(writer.createHtml('div', 'gameField flex'));
+document.body.append(writer.createHtml('div', 'gameField flex gameField--4x4'));
 
 window.onload = writer.addCards(16);
 

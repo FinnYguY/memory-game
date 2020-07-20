@@ -97,15 +97,30 @@ body{
   }
 
   .gameField{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 5px;
+    padding: 6px;
     border: 3px solid black;
     border-radius: 10px;
-    flex-direction: row;
-    align-content: space-around;
-    justify-content: space-around;
-    width: 300px;
-    height: 430px;
     backdrop-filter: blur(1px);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+  }
+
+  .gameField--4x4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .gameField--5x4 {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .gameField--6x6 {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
   }
 
   .card{
@@ -116,21 +131,16 @@ body{
     height: 97.5px;
     border: 2px solid black;
     border-radius: 10px;
-    position: relative;
     transition: 0.1s;
     transition: transform 0.3s;
   }
 
-  // @media screen and (max-width: 340px) {
-  //   .card {
-  //     width: 40px;
-  //     height: 65px;
-  //   }
-  //   .gameField {
-  //     width: 70%;
-  //     height: auto;
-  //   }
-  // }
+  @media screen and (max-width: 460px) {
+    .card {
+      width: 40px;
+      height: 65px;
+    }
+  }
 
   .card1{background-image: $red}
   .card2{background-image: $blue;}

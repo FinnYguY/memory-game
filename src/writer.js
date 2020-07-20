@@ -96,15 +96,18 @@ export function changeFieldSize () {
 
     switch (el.value) {
       case '1':
+        field.classList.add('gameField--4x4');
         addCards(16);
         break;
       case '2':
-        field.style.width = '375px';
+        field.classList.add('gameField--5x4');
+        // field.style.width = '375px';
         addCards(20);
         break;
       case '3':
-        field.style.width = '420px';
-        field.style.height = '645px';
+        field.classList.add('gameField--6x6');
+        // field.style.width = '420px';
+        // field.style.height = '645px';
         addCards(36);
         break;
       default:
