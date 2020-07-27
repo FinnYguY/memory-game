@@ -22,15 +22,15 @@ export function addCards (num) {
   }
 
   switch (document.getElementsByClassName('fieldSelector')[0].value) {
-    case '1':
+    case '44':
       classArray.length = 16;
       classArrLength = classArray.length;
       break;
-    case '2':
+    case '54':
       classArray.length = 20;
       classArrLength = classArray.length;
       break;
-    case '3':
+    case '66':
       classArray.length = 36;
       classArrLength = classArray.length;
       break;
@@ -95,19 +95,16 @@ export function changeFieldSize () {
     }, 1000);
 
     switch (el.value) {
-      case '1':
+      case '44':
         field.classList.add('gameField--4x4');
         addCards(16);
         break;
-      case '2':
+      case '54':
         field.classList.add('gameField--5x4');
-        // field.style.width = '375px';
         addCards(20);
         break;
-      case '3':
+      case '66':
         field.classList.add('gameField--6x6');
-        // field.style.width = '420px';
-        // field.style.height = '645px';
         addCards(36);
         break;
       default:
@@ -147,15 +144,18 @@ export const callback = function(mutationsList, observer) {
             showMsg(`<b>Congratulations!</b><br>You paired all the cards in ${time} and ${turns} turns`);
           }, 300);
 
-          // let bestResultNumber = Number(localStorage.key(localStorage.length));
-          // let bestResult = {
-          //   'time': time,
-          //   'turns': turns,
-          // }
-          // console.log(bestResult);
-          // localStorage.setItem(`${bestResultNumber}`, JSON.stringify(bestResult));
-          // bestResultNumber += 1;
-          // document.getElementsByClassName('leaderBoard')[0].innerHTML += localStorage.getItem(bestResultNumber);
+          let fieldSize = document.getElementsByClassName('fieldSelector')[0].value;
+          // var resultNumber = localStorage.length;
+          let result = {
+            'time': time,
+            'turns': turns,
+            'size': fieldSize,
+          }
+
+          //change HTML and localStorage if new result is better
+          if (compareResults(result, localStorage.getItem(result.size))) {
+            changeLeadResult(result);
+          }
 
           startStop();
           stopTurns();
@@ -170,13 +170,54 @@ export const callback = function(mutationsList, observer) {
   }
 };
 
-// export function showLeaderBoard() {
-//   let resultsArray = [];
-//   for (let i = 1; i < localStorage.length; i++) {
-//     resultsArray.push(JSON.parse(localStorage.getItem(i)));
-//   }
-//   console.log(resultsArray);
-// }
+export function compareResults(recent, previous) {
+  let recentTime = Number(recent.time.replace(':', ''));
+  let previousTime = Number(JSON.parse(previous).time.replace(':', ''));
+
+  let recentRatio = recentTime/recent.turns;
+  let previousRatio = previousTime/JSON.parse(previous).turns;
+
+  //if new result is worse than saved one
+  if (recentRatio >= previousRatio) {
+    return 0;
+  }
+
+  //if new result is better than saved one
+  return 1;
+}
+
+export function changeLeadResult(result) {
+  localStorage.removeItem(result.size);
+  document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> <u>${result.time}</u>, <b>Turns:</b> <u>${result.turns}</u> `;
+  localStorage.setItem(result.size, JSON.stringify(result));
+}
+
+export function showLeaderboard() {
+  if (localStorage.getItem(44)) {
+    let res1 = JSON.parse(localStorage.getItem(44));
+    document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> <u>${res1.time}</u>, <b>Turns:</b> <u>${res1.turns}</u> `;
+  }
+  if (localStorage.getItem(54)) {
+    let res2 = JSON.parse(localStorage.getItem(54));
+    document.getElementsByClassName('size54')[0].innerHTML = `<b>Time:</b> <u>${res2.time}</u>, <b>Turns:</b> <u>${res2.turns}</u> `;
+  }
+  if (localStorage.getItem(66)) {
+    let res3 = JSON.parse(localStorage.getItem(66));
+    document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> <u>${res3.time}</u>, <b>Turns:</b> <u>${res3.turns}</u> `;
+  }
+}
+
+export function fillBlankStorage(size) {
+  let dummy = {
+    'time': "10:00",
+    'turns': 1,
+    'size': size,
+  }
+
+  if (!localStorage.getItem(size)) {
+    localStorage.setItem(size, JSON.stringify(dummy));
+  }
+}
 
 //Stopwatch initiaization and functions
 var base = 60;

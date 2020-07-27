@@ -274,12 +274,41 @@ body{
     border-radius: 10px;
   }
 
-  .leaderBoardButton{
+  .leaderboardButton{
     position: absolute;
     right: 5px;
     top: 0;
   }
 
+  .leaderboardBlock {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 220px;
+    backdrop-filter: blur(1px);
+    border-radius: 10px;
+    text-align: right;
+  }
+
+  .leaderboard {
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px 0 10px;
+    margin: 5px 0;
+  }
+
+
+  .size44 {
+    background: rgba(26, 83, 255, 0.2);
+  }
+
+  .size54 {
+    background: rgba(26, 83, 255, 0.4);
+  }
+
+  .size66 {
+    background: rgba(26, 83, 255, 0.6);
+  }
 
   @media screen and (min-width: 730px) {
     .infoBlock {
