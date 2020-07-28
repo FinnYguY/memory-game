@@ -145,7 +145,6 @@ export const callback = function(mutationsList, observer) {
           }, 300);
 
           let fieldSize = document.getElementsByClassName('fieldSelector')[0].value;
-          // var resultNumber = localStorage.length;
           let result = {
             'time': time,
             'turns': turns,
@@ -153,7 +152,7 @@ export const callback = function(mutationsList, observer) {
           }
 
           //change HTML and localStorage if new result is better
-          if (compareResults(result, localStorage.getItem(result.size))) {
+          if (isFirstBetter(result, localStorage.getItem(result.size))) {
             changeLeadResult(result);
           }
 
@@ -170,11 +169,16 @@ export const callback = function(mutationsList, observer) {
   }
 };
 
-export function compareResults(recent, previous) {
+export function isFirstBetter(recent, previous) {
   let recentTime = Number(recent.time.replace(':', ''));
-  let previousTime = Number(JSON.parse(previous).time.replace(':', ''));
-
   let recentRatio = recentTime/recent.turns;
+
+  //make recent better if there is no previous
+  if (!localStorage.getItem(recent.size)) {
+    return 1;
+  }
+
+  let previousTime = Number(JSON.parse(previous).time.replace(':', ''));
   let previousRatio = previousTime/JSON.parse(previous).turns;
 
   //if new result is worse than saved one
@@ -204,18 +208,6 @@ export function showLeaderboard() {
   if (localStorage.getItem(66)) {
     let res3 = JSON.parse(localStorage.getItem(66));
     document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> <u>${res3.time}</u>, <b>Turns:</b> <u>${res3.turns}</u> `;
-  }
-}
-
-export function fillBlankStorage(size) {
-  let dummy = {
-    'time': "10:00",
-    'turns': 1,
-    'size': size,
-  }
-
-  if (!localStorage.getItem(size)) {
-    localStorage.setItem(size, JSON.stringify(dummy));
   }
 }
 

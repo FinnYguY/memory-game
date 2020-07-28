@@ -1,12 +1,6 @@
 const writer = require('.\\writer.js');
 import '.\\styles.scss'
 
-//creating menuBlock with buttons
-// document.body.append(writer.createHtml('div', 'menuBlock flex'));
-// document.getElementsByClassName('menuBlock')[0].append(writer.createHtml('button', 'menuBlockButton', ''));
-// document.getElementsByClassName('menuBlockButton')[0].addEventListener('click', writer.startStop);
-// document.getElementsByClassName('menuBlock')[0].append(writer.createHtml('button', 'menuBlockButton', 'Shuffle'));
-
 //creating fieldSelector block and its contents
 document.body.append(writer.createHtml('div', 'fieldSelectorDiv flex'));
 document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('span', 'blurredSpan', 'Select field size'));
@@ -41,7 +35,6 @@ document.getElementsByClassName('size54')[0].before(writer.createHtml('div', 'le
 document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboard size66', ''));
 document.getElementsByClassName('size66')[0].before(writer.createHtml('div', 'leaderboard', '<b>6x6</b>'));
 window.onload = writer.showLeaderboard();
-// document.getElementsByClassName('leaderboardButton')[0].addEventListener('click', writer.showLeaderBoard);
 
 //configuring the mutation observer for delegation to work properly
 var field = document.getElementsByTagName('body')[0];
@@ -52,7 +45,3 @@ const config = {
 
 const observer = new MutationObserver(writer.callback);
 observer.observe(field, config);
-
-writer.fillBlankStorage(44);
-writer.fillBlankStorage(54);
-writer.fillBlankStorage(66);
