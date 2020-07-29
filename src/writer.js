@@ -140,9 +140,6 @@ export const callback = function(mutationsList, observer) {
         if (emptyCardNumber == classArrLength) {
           let time = document.getElementsByClassName('stopwatch')[0].value;
           let turns = document.getElementsByClassName('turnsCounter')[0].value;
-          setTimeout(function () {
-            showMsg(`<b>Congratulations!</b><br>You paired all the cards in ${time} and ${turns} turns`);
-          }, 300);
 
           let fieldSize = document.getElementsByClassName('fieldSelector')[0].value;
           let result = {
@@ -153,7 +150,15 @@ export const callback = function(mutationsList, observer) {
 
           //change HTML and localStorage if new result is better
           if (isFirstBetter(result, localStorage.getItem(result.size))) {
+            setTimeout(function () {
+              showMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`);
+            }, 300);
             changeLeadResult(result);
+          }
+          else {
+            setTimeout(function () {
+              showMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`);
+            }, 300);
           }
 
           startStop();
@@ -171,7 +176,7 @@ export const callback = function(mutationsList, observer) {
 
 export function isFirstBetter(recent, previous) {
   let recentTime = Number(recent.time.replace(':', ''));
-  let recentRatio = recentTime/recent.turns;
+  let recentRatio = recentTime + recent.turns;
 
   //make recent better if there is no previous
   if (!localStorage.getItem(recent.size)) {
@@ -179,7 +184,7 @@ export function isFirstBetter(recent, previous) {
   }
 
   let previousTime = Number(JSON.parse(previous).time.replace(':', ''));
-  let previousRatio = previousTime/JSON.parse(previous).turns;
+  let previousRatio = previousTime + JSON.parse(previous).turns;
 
   //if new result is worse than saved one
   if (recentRatio >= previousRatio) {
@@ -192,22 +197,22 @@ export function isFirstBetter(recent, previous) {
 
 export function changeLeadResult(result) {
   localStorage.removeItem(result.size);
-  document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> <u>${result.time}</u>, <b>Turns:</b> <u>${result.turns}</u> `;
+  document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
   localStorage.setItem(result.size, JSON.stringify(result));
 }
 
 export function showLeaderboard() {
   if (localStorage.getItem(44)) {
     let res1 = JSON.parse(localStorage.getItem(44));
-    document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> <u>${res1.time}</u>, <b>Turns:</b> <u>${res1.turns}</u> `;
+    document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
   }
   if (localStorage.getItem(54)) {
     let res2 = JSON.parse(localStorage.getItem(54));
-    document.getElementsByClassName('size54')[0].innerHTML = `<b>Time:</b> <u>${res2.time}</u>, <b>Turns:</b> <u>${res2.turns}</u> `;
+    document.getElementsByClassName('size54')[0].innerHTML = `<b>Time:</b> ${res2.time}, <b>Turns:</b> ${res2.turns} `;
   }
   if (localStorage.getItem(66)) {
     let res3 = JSON.parse(localStorage.getItem(66));
-    document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> <u>${res3.time}</u>, <b>Turns:</b> <u>${res3.turns}</u> `;
+    document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> ${res3.time}, <b>Turns:</b> ${res3.turns} `;
   }
 }
 

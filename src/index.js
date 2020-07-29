@@ -24,15 +24,19 @@ document.body.append(writer.createHtml('div', 'gameField flex gameField--4x4'));
 window.onload = writer.addCards(16);
 
 //creating block with information
-document.body.append(writer.createHtml('div', 'infoBlock', '<b>Memory game</b> <br><br> Pair the cards by taking 2 of them per turn until the game field is empty. <br> <b>Click</b> on any card to start playing <br> <b>Confirm & Shuffle</b> - shuffle field of selected size'));
+document.body.append(writer.createHtml('div', 'infoBlock', '<b>Memory Game</b> <br> Flip two cards. If the cards are the same on their face side - they disappear. If they are different - you have to pick another pair. Clearing the field is the winning condition <br> <b>Click</b> on any card to start playing <br> <b>Confirm & Shuffle</b> - shuffle field of selected size'));
 
 //creating best results block
 document.body.append(writer.createHtml('div', 'leaderboardBlock', '<b>Leaderboard</b>'));
-document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboard size44', ''));
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'lineBreak'));
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboardWrap'));
+document.getElementsByClassName('leaderboardWrap')[0].append(writer.createHtml('div', 'leaderboard size44', ''));
 document.getElementsByClassName('size44')[0].before(writer.createHtml('div', 'leaderboard', '<b>4x4</b>'));
-document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboard size54', ''));
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboardWrap'));
+document.getElementsByClassName('leaderboardWrap')[1].append(writer.createHtml('div', 'leaderboard size54', ''));
 document.getElementsByClassName('size54')[0].before(writer.createHtml('div', 'leaderboard', '<b>5x4</b>'));
-document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboard size66', ''));
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboardWrap'));
+document.getElementsByClassName('leaderboardWrap')[2].append(writer.createHtml('div', 'leaderboard size66', ''));
 document.getElementsByClassName('size66')[0].before(writer.createHtml('div', 'leaderboard', '<b>6x6</b>'));
 window.onload = writer.showLeaderboard();
 

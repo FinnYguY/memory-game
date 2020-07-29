@@ -102,6 +102,7 @@ body{
     align-items: center;
     grid-gap: 5px;
     padding: 6px;
+    margin: 10px;
     border: 3px solid black;
     border-radius: 10px;
     backdrop-filter: blur(1px);
@@ -270,33 +271,43 @@ body{
   }
 
   .infoBlock{
-    backdrop-filter: blur(1px);
+    text-align: center;
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+    border: 3px dashed white;
     border-radius: 10px;
-  }
-
-  .leaderboardButton{
-    position: absolute;
-    right: 5px;
-    top: 0;
+    backdrop-filter: blur(1px);
   }
 
   .leaderboardBlock {
-    position: absolute;
-    right: 5px;
-    top: 0;
-    width: 220px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 20px;
+    width: 100%;
+    // right: -3px;
+    // top: -3px;
     backdrop-filter: blur(1px);
-    border-radius: 10px;
-    text-align: right;
+    border: 3px dashed white;
+    border-radius: 15px;
   }
 
   .leaderboard {
+    margin: 5px 0;
+    padding: 5px 5px 10px;
+    width: 220px;
+    height: 20px;
     border-radius: 15px;
     text-align: center;
-    padding: 5px 0 10px;
-    margin: 5px 0;
   }
 
+  .leaderboardWrap {
+    margin: 5px;
+  }
 
   .size44 {
     background: rgba(26, 83, 255, 0.2);
@@ -310,12 +321,39 @@ body{
     background: rgba(26, 83, 255, 0.6);
   }
 
-  @media screen and (min-width: 730px) {
+  .lineBreak {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 1070px) {
     .infoBlock {
+      text-align: left;
       position: absolute;
-      left: 5px;
-      top: 0;
-      width: 25%;
+      width: 300px;
+      margin-top: 0px;
+      left: 0px;
+      top: 0px;
+      border-left: none;
+      border-top: none;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+  }
+
+  @media screen and (min-width: 935px) {
+    .leaderboardBlock {
+      position: absolute;
+      flex-direction: column;
+      width: 240px;
+      margin-top: 0px;
+      right: 0px;
+      top: 0px;
+      border-right: none;
+      border-top: none;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 0px;
     }
   }
 }
