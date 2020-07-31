@@ -3,3 +3,6 @@ node_modules/
 
 #package config files
 package-lock.json
+
+#eslint config files
+.eslintrc.json

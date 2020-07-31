@@ -1,7 +1,7 @@
 $font: Lucida Sans Unicode;
 $lightblueBg: 'https://www.tutorialchip.com/wp-content/uploads/2011/06/Blue-Pattern.jpg';
-$brownButtonColor: #ba8178;
-$brownButtonColorActive: #874e45;
+$brownButtonColor: linear-gradient(90deg, rgba(186,129,120,1) 0%, rgba(135,77,69,1) 100%);
+$brownButtonColorActive: linear-gradient(90deg, rgba(135,77,69,1) 0%, rgba(186,129,120,1) 100%);
 $scrollbarTrack: #559FB4;
 $scrollbarThumbHover: #a86257;
 $cardBg: 'https://i.pinimg.com/originals/dd/6d/c8/dd6dc8a6b6db1b6f4b01bd1bcc891621.jpg';
@@ -50,7 +50,7 @@ body{
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    background: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
+    background-image: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
     z-index: 1;
     transition: 1s;
   }
@@ -72,7 +72,7 @@ body{
     cursor: pointer;
     font-size: 17px;
     font-family: $font;
-    background-color: $brownButtonColor;
+    background-image: $brownButtonColor;
     color: black;
     margin: 10px;
     border: 2px solid black;
@@ -86,7 +86,7 @@ body{
   }
 
   .msgButton:active{
-    background-color: $brownButtonColorActive;
+    background-image: $brownButtonColorActive;
   }
 
   .blurredSpan{
@@ -167,39 +167,16 @@ body{
     box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.5);
   }
 
+  .card:active {
+    filter: brightness(70%);
+  }
+
   .cardBack{
     background-image: url($cardBg);
     transform: rotateY(180deg);
   }
 
   .invisible{opacity: 0; transition: 0.3s;}
-
-  .menuBlock{
-    width: 80%;
-    flex-wrap: nowrap;
-  }
-
-  .menuBlockButton{
-    cursor: pointer;
-    font-size: 17px;
-    font-family: $font;
-    background-color: $brownButtonColor;
-    color: black;
-    width: 180px;
-    margin: 10px;
-    border: 2px solid black;
-    border-radius: 10px;
-    outline: none;
-  }
-
-  .menuBlockButton:hover{
-    box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.5);
-    transition: 0.1s;
-  }
-
-  .menuBlockButton:active{
-    background-color: $brownButtonColorActive;
-  }
 
   .fieldSelectorDiv{
     width: 80%;
@@ -211,7 +188,7 @@ body{
   .fieldSelector{
     appearance: none;
     cursor: pointer;
-    background-color: $brownButtonColor;
+    background-image: $brownButtonColorActive;
     font-size: 17px;
     font-family: inherit;
     font-weight: bold;
@@ -219,7 +196,12 @@ body{
     border-radius: 5px;
     height: 30px;
     margin-top: 4px;
+    padding: 0 5px 0;
     outline: none;
+  }
+
+  .fieldSelector option {
+    background-color: #874d45;
   }
 
   .fieldSelector:hover{
@@ -235,22 +217,22 @@ body{
     cursor: pointer;
     font-size: 17px;
     font-family: $font;
-    background-color: $brownButtonColor;
+    background-image: $brownButtonColor;
     color: black;
     height: 30px;
     margin: 4px 5px 5px;
     border: 2px solid black;
     border-radius: 5px;
+    transition: 0.1s;
     outline: none;
   }
 
   .fieldSelectorButton:hover{
     box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
-    transition: 0.1s;
   }
 
   .fieldSelectorButton:active{
-    background-color: $brownButtonColorActive;
+    background-image: $brownButtonColorActive;
   }
 
   .timeNturnsBlock{
@@ -289,8 +271,6 @@ body{
     flex-direction: row;
     margin-top: 20px;
     width: 100%;
-    // right: -3px;
-    // top: -3px;
     backdrop-filter: blur(1px);
     border: 3px dashed white;
     border-radius: 15px;

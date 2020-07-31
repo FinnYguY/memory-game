@@ -1,5 +1,5 @@
 //create html element with given attributes
-export function createHtml(selector, className, innerText, ...keysValues) {
+exports.createHtml = function () {
   let elem = document.createElement(selector);
   className == undefined ? elem.className = '' : elem.className = className;
   innerText == undefined ? elem.innerHTML = '' : elem.innerHTML = innerText;
@@ -11,10 +11,10 @@ export function createHtml(selector, className, innerText, ...keysValues) {
     }
   }
   return elem;
-}
+};
 
 var classArrLength = 0;
-export function addCards (num) {
+exports.addCards = function (num) {
   let classArray = ['card1', 'card1', 'card2', 'card2', 'card3', 'card3', 'card4', 'card4', 'card5', 'card5', 'card6', 'card6', 'card7', 'card7', 'card8', 'card8', 'card9', 'card9', 'card10', 'card10', 'card11', 'card11', 'card12', 'card12', 'card13', 'card13', 'card14', 'card14', 'card15', 'card15', 'card16', 'card16', 'card17', 'card17', 'card18', 'card18'];
 
   function getRndInt(min, max) {
@@ -43,24 +43,24 @@ export function addCards (num) {
   }
 }
 
-export function stopTurns() {
+exports.stopTurns = function () {
   document.getElementsByClassName('turnsCounter')[0].value = '0';
 }
 
 //toggling card face up/down
-export function toggleCard(...cards) {
+exports.toggleCard = function (...cards) {
   for(let card of cards){
     card.classList.toggle('cardBack');
   }
 }
 
-export function showMsg(msg) {
+exports.showMsg = function (msg) {
   document.getElementsByClassName('gameField')[0].prepend(createHtml('div', 'msgDiv'));
   document.getElementsByClassName('msgDiv')[0].prepend(createHtml('p', '', msg));
 };
 
 var emptyCardNumber = 0;
-export function compareCards(card1, card2) {
+exports.compareCards = function (card1, card2) {
   if (card1.classList[1] == card2.classList[1]) {
     setTimeout(() => {card1.classList.add('invisible', 'noclick');}, 300);
     setTimeout(() => {card2.classList.add('invisible', 'noclick');}, 300);
@@ -72,7 +72,7 @@ export function compareCards(card1, card2) {
   }
 }
 
-export function changeFieldSize () {
+exports.changeFieldSize = function () {
   let elems, field, card;
 
   document.getElementsByClassName('gameField')[0].remove();
@@ -88,6 +88,7 @@ export function changeFieldSize () {
     init = 0;
     stopTurns();
     isFirstClick = true;
+    emptyCardNumber = 0;
 
     showMsg('<b>Shuffling...</b>');
     setTimeout(function () {
@@ -152,12 +153,16 @@ export const callback = function(mutationsList, observer) {
           if (isFirstBetter(result, localStorage.getItem(result.size))) {
             setTimeout(function () {
               showMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`);
+              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
+              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
             }, 300);
             changeLeadResult(result);
           }
           else {
             setTimeout(function () {
               showMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`);
+              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
+              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
             }, 300);
           }
 
@@ -174,7 +179,7 @@ export const callback = function(mutationsList, observer) {
   }
 };
 
-export function isFirstBetter(recent, previous) {
+exports.isFirstBetter = function (recent, previous) {
   let recentTime = Number(recent.time.replace(':', ''));
   let recentRatio = recentTime + recent.turns;
 
@@ -195,13 +200,13 @@ export function isFirstBetter(recent, previous) {
   return 1;
 }
 
-export function changeLeadResult(result) {
+exports.changeLeadResult = function (result) {
   localStorage.removeItem(result.size);
   document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
   localStorage.setItem(result.size, JSON.stringify(result));
 }
 
-export function showLeaderboard() {
+exports.showLeaderboard = function () {
   if (localStorage.getItem(44)) {
     let res1 = JSON.parse(localStorage.getItem(44));
     document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
@@ -228,7 +233,7 @@ var h = 1,
   ms = 0,
   init = 0;
 
-export function clearStopwatch () {
+exports.clearStopwatch = function () {
   clearTimeout(clocktimer);
   h = 1;
   m = 1;
@@ -241,7 +246,7 @@ export function clearStopwatch () {
   document.getElementsByClassName('stopwatch')[0].value = readout;
 }
 
-export function startStopwatch () {
+exports.startStopwatch = function () {
   var cdateObj = new Date();
   var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
   if (t > 999) {
@@ -286,7 +291,7 @@ export function startStopwatch () {
   clocktimer = setTimeout(startStopwatch, 1);
 }
 
-export function startStop () {
+exports.startStop = function () {
   if (init == 0) {
     clearStopwatch();
     dateObj = new Date();
