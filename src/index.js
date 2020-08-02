@@ -8,7 +8,7 @@ document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml(
 document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('option', '', '4x4', 'value', '44'));
 document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('option', '', '5x4', 'value', '54'));
 document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('option', '', '6x6', 'value', '66'));
-document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('button', 'fieldSelectorButton', 'Confirm & Shuffle'));
+document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('button', 'button fieldSelectorButton', 'Confirm & Shuffle'));
 document.getElementsByClassName('fieldSelectorButton')[0].addEventListener('click', writer.changeFieldSize);
 
 //creating timeNturnsBlock with buttons
@@ -38,7 +38,16 @@ document.getElementsByClassName('size54')[0].before(writer.createHtml('div', 'le
 document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'leaderboardWrap'));
 document.getElementsByClassName('leaderboardWrap')[2].append(writer.createHtml('div', 'leaderboard size66', ''));
 document.getElementsByClassName('size66')[0].before(writer.createHtml('div', 'leaderboard', '<b>6x6</b>'));
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'lineBreak'));
 window.onload = writer.showLeaderboard();
+
+document.getElementsByClassName('leaderboardBlock')[0].append(writer.createHtml('div', 'saveLoadBlock', 'Statistics are not recorded for loaded games, train in real time to conquer leaderboard! <br>'));
+document.getElementsByClassName('saveLoadBlock')[0].append(writer.createHtml('button', 'button  saveGameButton', 'Save Game'));
+document.getElementsByClassName('saveGameButton')[0].addEventListener('click', writer.saveGame);
+document.getElementsByClassName('saveLoadBlock')[0].append(writer.createHtml('button', 'button  loadGameButton', 'Load Game'));
+document.getElementsByClassName('loadGameButton')[0].addEventListener('click', () => {
+  writer.loadGame(localStorage.getItem('gameSave'));
+});
 
 //configuring the mutation observer for delegation to work properly
 var field = document.getElementsByTagName('body')[0];

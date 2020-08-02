@@ -1,5 +1,5 @@
 //create html element with given attributes
-exports.createHtml = function () {
+export function createHtml (selector, className, innerText, ...keysValues) {
   let elem = document.createElement(selector);
   className == undefined ? elem.className = '' : elem.className = className;
   innerText == undefined ? elem.innerHTML = '' : elem.innerHTML = innerText;
@@ -14,7 +14,7 @@ exports.createHtml = function () {
 };
 
 var classArrLength = 0;
-exports.addCards = function (num) {
+export function addCards (num) {
   let classArray = ['card1', 'card1', 'card2', 'card2', 'card3', 'card3', 'card4', 'card4', 'card5', 'card5', 'card6', 'card6', 'card7', 'card7', 'card8', 'card8', 'card9', 'card9', 'card10', 'card10', 'card11', 'card11', 'card12', 'card12', 'card13', 'card13', 'card14', 'card14', 'card15', 'card15', 'card16', 'card16', 'card17', 'card17', 'card18', 'card18'];
 
   function getRndInt(min, max) {
@@ -43,24 +43,24 @@ exports.addCards = function (num) {
   }
 }
 
-exports.stopTurns = function () {
+export function stopTurns () {
   document.getElementsByClassName('turnsCounter')[0].value = '0';
 }
 
 //toggling card face up/down
-exports.toggleCard = function (...cards) {
+export function toggleCard (...cards) {
   for(let card of cards){
     card.classList.toggle('cardBack');
   }
 }
 
-exports.showMsg = function (msg) {
+export function showMsg (msg) {
   document.getElementsByClassName('gameField')[0].prepend(createHtml('div', 'msgDiv'));
   document.getElementsByClassName('msgDiv')[0].prepend(createHtml('p', '', msg));
 };
 
 var emptyCardNumber = 0;
-exports.compareCards = function (card1, card2) {
+export function compareCards (card1, card2) {
   if (card1.classList[1] == card2.classList[1]) {
     setTimeout(() => {card1.classList.add('invisible', 'noclick');}, 300);
     setTimeout(() => {card2.classList.add('invisible', 'noclick');}, 300);
@@ -72,8 +72,9 @@ exports.compareCards = function (card1, card2) {
   }
 }
 
-exports.changeFieldSize = function () {
+export function changeFieldSize () {
   let elems, field, card;
+  isLoadedGame = false;
 
   document.getElementsByClassName('gameField')[0].remove();
 
@@ -116,6 +117,7 @@ exports.changeFieldSize = function () {
 let faceUpCounter = 0;
 let faceUpCard1;
 var isFirstClick = true;
+let isLoadedGame = false;
 export const callback = function(mutationsList, observer) {
   document.getElementsByClassName('gameField')[0].onclick = function (event) {
     let target = event.target;
@@ -134,7 +136,9 @@ export const callback = function(mutationsList, observer) {
       if (faceUpCounter >= 2) {
         document.getElementsByClassName('gameField')[0].classList.add('noclick');
         setTimeout(() => {document.getElementsByClassName('gameField')[0].classList.remove('noclick')}, 200);
-        document.getElementsByClassName('turnsCounter')[0].value++;
+        if (!isLoadedGame) {
+          document.getElementsByClassName('turnsCounter')[0].value++;
+        }
         compareCards(target, faceUpCard1);
 
         let cards = document.getElementsByClassName('card');
@@ -147,6 +151,14 @@ export const callback = function(mutationsList, observer) {
             'time': time,
             'turns': turns,
             'size': fieldSize,
+          }
+
+          if (isLoadedGame) {
+            setTimeout(function () {
+              showMsg(`<b>Well... <br> You'd better play without saving and loading... <br></b> Statistics are nor recorded for loaded games`);
+              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
+              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
+            }, 300);
           }
 
           //change HTML and localStorage if new result is better
@@ -179,7 +191,7 @@ export const callback = function(mutationsList, observer) {
   }
 };
 
-exports.isFirstBetter = function (recent, previous) {
+export function isFirstBetter (recent, previous) {
   let recentTime = Number(recent.time.replace(':', ''));
   let recentRatio = recentTime + recent.turns;
 
@@ -200,13 +212,13 @@ exports.isFirstBetter = function (recent, previous) {
   return 1;
 }
 
-exports.changeLeadResult = function (result) {
+export function changeLeadResult (result) {
   localStorage.removeItem(result.size);
   document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
   localStorage.setItem(result.size, JSON.stringify(result));
 }
 
-exports.showLeaderboard = function () {
+export function showLeaderboard () {
   if (localStorage.getItem(44)) {
     let res1 = JSON.parse(localStorage.getItem(44));
     document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
@@ -221,6 +233,58 @@ exports.showLeaderboard = function () {
   }
 }
 
+export function saveGame (time, turns) {
+  let saveTime = document.getElementsByClassName('stopwatch')[0].value;
+  let saveTurns = document.getElementsByClassName('turnsCounter')[0].value;
+  let saveFieldSize = document.getElementsByClassName('fieldSelector')[0].value;
+  let currentField = document.getElementsByClassName('gameField')[0].innerHTML;
+
+  showMsg('<b>Saving...</b>');
+  setTimeout(function () {
+    document.getElementsByClassName('msgDiv')[0].remove();
+  }, 1000);
+
+  clearStopwatch();
+  clearTimeout(clocktimer);
+  init = 0;
+  stopTurns();
+  isFirstClick = true;
+  emptyCardNumber = 0;
+  Array.from(document.getElementsByClassName('card')).forEach((item) => {
+    if (item.classList.contains('invisible')) {
+      emptyCardNumber += 1;
+    }
+  });
+
+  let savedGame = {
+    'size': saveFieldSize,
+    'field': currentField,
+  }
+
+  localStorage.setItem('gameSave', JSON.stringify(savedGame));
+}
+
+export function loadGame (save) {
+  let gameSave = JSON.parse(save);
+
+  document.getElementsByClassName('fieldSelector')[0].value = gameSave.size;
+  changeFieldSize();
+  document.getElementsByClassName('msgDiv')[0].innerHTML = '<p><b>Loading...</b></p>';
+
+  //loading saved field
+  setTimeout(function () {
+    document.getElementsByClassName('gameField')[0].innerHTML = gameSave.field;
+    emptyCardNumber = 0;
+    isFirstClick = false;
+    Array.from(document.getElementsByClassName('card')).forEach((item) => {
+      if (item.classList.contains('invisible')) {
+        emptyCardNumber += 1;
+      }
+    });
+  }, 1000);
+  isLoadedGame = true;
+}
+
 //Stopwatch initiaization and functions
 var base = 60;
 var clocktimer, dateObj, dh, dm, ds, ms;
@@ -233,7 +297,7 @@ var h = 1,
   ms = 0,
   init = 0;
 
-exports.clearStopwatch = function () {
+export function clearStopwatch () {
   clearTimeout(clocktimer);
   h = 1;
   m = 1;
@@ -246,7 +310,7 @@ exports.clearStopwatch = function () {
   document.getElementsByClassName('stopwatch')[0].value = readout;
 }
 
-exports.startStopwatch = function () {
+export function startStopwatch () {
   var cdateObj = new Date();
   var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
   if (t > 999) {
@@ -291,7 +355,7 @@ exports.startStopwatch = function () {
   clocktimer = setTimeout(startStopwatch, 1);
 }
 
-exports.startStop = function () {
+export function startStop () {
   if (init == 0) {
     clearStopwatch();
     dateObj = new Date();
