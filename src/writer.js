@@ -265,6 +265,14 @@ export function saveGame (time, turns) {
 }
 
 export function loadGame (save) {
+  if (!save) {
+    showMsg('<b>No saved games found :(</b>');
+    setTimeout(function () {
+      document.getElementsByClassName('msgDiv')[0].remove();
+    }, 1000);
+    return;
+  }
+
   let gameSave = JSON.parse(save);
 
   document.getElementsByClassName('fieldSelector')[0].value = gameSave.size;
