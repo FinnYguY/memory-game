@@ -1,4 +1,4 @@
-.msgDiv{
+.msg-block{
   position: absolute;
   align-self: center;
   width: 100%;
@@ -9,7 +9,7 @@
   transition: 1s;
 }
 
-.msgDiv p{
+.msg-block p{
   font-size: 20px;
   display: flex;
   justify-content: center;
@@ -19,7 +19,7 @@
   margin: 0;
 }
 
-.msgButton{
+.msg-block__button{
   position: absolute;
   bottom: 0px;
   right: 0px;

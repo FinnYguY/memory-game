@@ -19,14 +19,14 @@ body{
 
   .invisible{opacity: 0; transition: 0.3s;}
 
-  .blurredSpan{
+  .span_blurred{
     border-radius: 10px;
     backdrop-filter: blur(1px);
     height: 26px;
     margin: 5px 5px 10px;
   }
 
-  .gameField{
+  .gamefield{
     @include flex;
 
     display: grid;
@@ -40,17 +40,17 @@ body{
     backdrop-filter: blur(1px);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
 
-    &--4x4 {
+    &_4x4 {
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(4, 1fr);
     }
 
-    &--5x4 {
+    &_5x4 {
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(4, 1fr);
     }
 
-    &--6x6 {
+    &_6x6 {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(6, 1fr);
     }

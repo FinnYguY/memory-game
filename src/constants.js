@@ -5,7 +5,7 @@ export var sizes = {
 };
 
 export var selectors = {
-  gameField44: 'gameField--4x4',
-  gameField54: 'gameField--5x4',
-  gameField66: 'gameField--6x6',
+  gamefield44: 'gamefield_4x4',
+  gamefield54: 'gamefield_5x4',
+  gamefield66: 'gamefield_6x6',
 };

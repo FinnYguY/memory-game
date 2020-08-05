@@ -25,7 +25,6 @@
   }
 }
 
-
 .card1{background-image: $red}
 .card2{background-image: $blue;}
 .card3{background-image: $green;}
@@ -45,7 +44,7 @@
 .card17{background-image: $martini;}
 .card18{background-image: $darkPurple;}
 
-.cardBack{
+.card_back{
   background-image: url($cardBg);
   transform: rotateY(180deg);
 }

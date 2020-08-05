@@ -1,4 +1,4 @@
-.fieldSelectorDiv{
+.field-selector-block{
   @include flex;
 
   width: 80%;
@@ -7,7 +7,7 @@
   font-weight: bold;
 }
 
-.fieldSelector{
+.field-selector-block__selector{
   appearance: none;
   cursor: pointer;
   background-image: $brownButtonColorActive;
@@ -35,14 +35,14 @@
   }
 }
 
-.timeNturnsBlock{
+.time-n-turns-block{
   @include flex;
-  
+
   font-weight: bold;
   width: 90%;
 }
 
-.timeNturnsBlockButton{
+.time-n-turns-block__button{
   font-size: 17px;
   font-family: inherit;
   font-weight: bold;
