@@ -1,3 +1,5 @@
+const constants = require('.\\constants.js');
+
 //create html element with given attributes
 export function createHtml (selector, className, innerText, ...keysValues) {
   let elem = document.createElement(selector);
@@ -15,22 +17,25 @@ export function createHtml (selector, className, innerText, ...keysValues) {
 
 var classArrLength = 0;
 export function addCards (num) {
-  let classArray = ['card1', 'card1', 'card2', 'card2', 'card3', 'card3', 'card4', 'card4', 'card5', 'card5', 'card6', 'card6', 'card7', 'card7', 'card8', 'card8', 'card9', 'card9', 'card10', 'card10', 'card11', 'card11', 'card12', 'card12', 'card13', 'card13', 'card14', 'card14', 'card15', 'card15', 'card16', 'card16', 'card17', 'card17', 'card18', 'card18'];
+  let classArray = [];
+  for(let i = 1; i < 19; i++) {
+    classArray.push(`card${i}`,`card${i}`);
+  }
 
   function getRndInt(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
 
   switch (document.getElementsByClassName('fieldSelector')[0].value) {
-    case '44':
+    case constants.sizes.size44:
       classArray.length = 16;
       classArrLength = classArray.length;
       break;
-    case '54':
+    case constants.sizes.size54:
       classArray.length = 20;
       classArrLength = classArray.length;
       break;
-    case '66':
+    case constants.sizes.size66:
       classArray.length = 36;
       classArrLength = classArray.length;
       break;
@@ -59,6 +64,12 @@ export function showMsg (msg) {
   document.getElementsByClassName('msgDiv')[0].prepend(createHtml('p', '', msg));
 };
 
+export function showButtonMsg (msg, buttonText, action) {
+  showMsg(msg);
+  document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
+  document.getElementsByClassName('msgButton')[0].addEventListener('click', action);
+}
+
 var emptyCardNumber = 0;
 export function compareCards (card1, card2) {
   if (card1.classList[1] == card2.classList[1]) {
@@ -81,7 +92,7 @@ export function changeFieldSize () {
   elems = document.getElementsByClassName('fieldSelector');
   Array.from(elems).forEach((el) => {
     field = document.createElement('div');
-    field.className = 'gameField flex';
+    field.className = 'gameField';
     document.getElementsByClassName('timeNturnsBlock')[0].after(field);
 
     clearStopwatch();
@@ -97,16 +108,16 @@ export function changeFieldSize () {
     }, 1000);
 
     switch (el.value) {
-      case '44':
-        field.classList.add('gameField--4x4');
+      case constants.sizes.size44:
+        field.classList.add(constants.selectors.gameField44);
         addCards(16);
         break;
-      case '54':
-        field.classList.add('gameField--5x4');
+      case constants.sizes.size54:
+        field.classList.add(constants.selectors.gameField54);
         addCards(20);
         break;
-      case '66':
-        field.classList.add('gameField--6x6');
+      case constants.sizes.size66:
+        field.classList.add(constants.selectors.gameField66);
         addCards(36);
         break;
       default:
@@ -155,26 +166,20 @@ export const callback = function(mutationsList, observer) {
 
           if (isLoadedGame) {
             setTimeout(function () {
-              showMsg(`<b>Well... <br> You'd better play without saving and loading... <br></b> Statistics are nor recorded for loaded games`);
-              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
-              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
+              showButtonMsg(`<b>Well... <br> You'd better play without saving and loading... <br></b> Statistics are nor recorded for loaded games`, 'Play Again', changeFieldSize);
             }, 300);
           }
 
           //change HTML and localStorage if new result is better
           if (isFirstBetter(result, localStorage.getItem(result.size))) {
             setTimeout(function () {
-              showMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`);
-              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
-              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
+              showButtonMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
             }, 300);
             changeLeadResult(result);
           }
           else {
             setTimeout(function () {
-              showMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`);
-              document.getElementsByClassName('msgDiv')[0].append(createHtml('button', 'msgButton', 'Play Again'));
-              document.getElementsByClassName('msgButton')[0].addEventListener('click', changeFieldSize);
+              showButtonMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
             }, 300);
           }
 
@@ -219,16 +224,16 @@ export function changeLeadResult (result) {
 }
 
 export function showLeaderboard () {
-  if (localStorage.getItem(44)) {
-    let res1 = JSON.parse(localStorage.getItem(44));
+  if (localStorage.getItem(constants.sizes.size44)) {
+    let res1 = JSON.parse(localStorage.getItem(constants.sizes.size44));
     document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
   }
-  if (localStorage.getItem(54)) {
-    let res2 = JSON.parse(localStorage.getItem(54));
+  if (localStorage.getItem(constants.sizes.size54)) {
+    let res2 = JSON.parse(localStorage.getItem(constants.sizes.size54));
     document.getElementsByClassName('size54')[0].innerHTML = `<b>Time:</b> ${res2.time}, <b>Turns:</b> ${res2.turns} `;
   }
-  if (localStorage.getItem(66)) {
-    let res3 = JSON.parse(localStorage.getItem(66));
+  if (localStorage.getItem(constants.sizes.size66)) {
+    let res3 = JSON.parse(localStorage.getItem(constants.sizes.size66));
     document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> ${res3.time}, <b>Turns:</b> ${res3.turns} `;
   }
 }

@@ -1,8 +1,8 @@
 const writer = require('.\\writer.js');
-import '.\\styles.scss'
+import '.\\styles.scss';
 
 //creating fieldSelector block and its contents
-document.body.append(writer.createHtml('div', 'fieldSelectorDiv flex'));
+document.body.append(writer.createHtml('div', 'fieldSelectorDiv'));
 document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('span', 'blurredSpan', 'Select field size'));
 document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml('select', 'fieldSelector'));
 document.getElementsByClassName('fieldSelector')[0].append(writer.createHtml('option', '', '4x4', 'value', '44'));
@@ -12,14 +12,14 @@ document.getElementsByClassName('fieldSelectorDiv')[0].append(writer.createHtml(
 document.getElementsByClassName('fieldSelectorButton')[0].addEventListener('click', writer.changeFieldSize);
 
 //creating timeNturnsBlock with buttons
-document.body.append(writer.createHtml('div', 'timeNturnsBlock flex'));
+document.body.append(writer.createHtml('div', 'timeNturnsBlock'));
 document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('span', 'blurredSpan', 'Time'));
 document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('input', 'timeNturnsBlockButton stopwatch', '', 'value', '00:00', 'disabled', 'true'));
 document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('span', 'blurredSpan', 'Turns'));
 document.getElementsByClassName('timeNturnsBlock')[0].append(writer.createHtml('input', 'timeNturnsBlockButton turnsCounter', '', 'value', '0', 'disabled', 'true'));
 
 //creating gameField
-document.body.append(writer.createHtml('div', 'gameField flex gameField--4x4'));
+document.body.append(writer.createHtml('div', 'gameField gameField--4x4'));
 
 window.onload = writer.addCards(16);
 

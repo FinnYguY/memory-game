@@ -1,31 +1,4 @@
-$font: Lucida Sans Unicode;
-$lightblueBg: 'https://www.tutorialchip.com/wp-content/uploads/2011/06/Blue-Pattern.jpg';
-$brownButtonColor: linear-gradient(90deg, rgba(186,129,120,1) 0%, rgba(135,77,69,1) 100%);
-$brownButtonColorActive: linear-gradient(90deg, rgba(135,77,69,1) 0%, rgba(186,129,120,1) 100%);
-$scrollbarTrack: #559FB4;
-$scrollbarThumbHover: #a86257;
-$cardBg: 'https://i.pinimg.com/originals/dd/6d/c8/dd6dc8a6b6db1b6f4b01bd1bcc891621.jpg';
-
-//Gradients
-
-$red: linear-gradient(45deg, rgba(69,1,2,1) 0%, rgba(255,0,66,1) 50%, rgba(69,1,2,1) 100%);
-$lightred: linear-gradient(45deg, rgba(254,64,90,1) 0%, rgba(247,182,186,1) 50%, rgba(254,64,90,1) 100%);
-$blue: linear-gradient(45deg, rgba(47,55,153,1) 0%, rgba(2,245,251,1) 50%, rgba(47,55,153,1) 100%);
-$darkblue: linear-gradient(45deg, rgba(12,16,60,1) 0%, rgba(12,25,219,1) 50%, rgba(14,19,80,1) 100%);
-$lightblue: linear-gradient(45deg, rgba(99,116,208,1) 0%, rgba(208,237,255,1) 50%, rgba(99,116,208,1) 100%);
-$green: linear-gradient(45deg, rgba(10,53,8,1) 0%, rgba(78,243,79,1) 50%, rgba(10,53,8,1) 100%);
-$yellowBlue: linear-gradient(45deg, rgba(64,59,74,1) 5%, rgba(224,228,138,1) 50%, rgba(64,59,74,1) 95%);
-$mojito: linear-gradient(45deg, rgba(29,151,108,1) 0%, rgba(147,249,185,1) 50%, rgba(29,151,108,1) 100%);
-$pink: linear-gradient(45deg, rgba(219,24,182,1) 0%, rgba(255,200,252,1) 50%, rgba(219,24,182,1) 100%);
-$purple: linear-gradient(45deg, rgba(65,39,173,1) 0%, rgba(213,154,238,1) 50%, rgba(65,39,173,1) 100%);
-$yellow: linear-gradient(45deg, rgba(255,252,0,1) 0%, rgba(255,255,255,1) 50%, rgba(255,252,0,1) 100%);
-$brown: linear-gradient(45deg, rgba(51,40,27,1) 0%, rgba(156,100,41,1) 50%, rgba(51,40,27,1) 100%);
-$orange: linear-gradient(45deg, rgba(241,39,17,1) 0%, rgba(245,175,25,1) 50%, rgba(241,39,17,1) 100%);
-$lightgray: linear-gradient(45deg, rgba(108,107,113,1) 0%, rgba(207,207,207,1) 50%, rgba(108,107,113,1) 100%);
-$darkgray: linear-gradient(45deg, rgba(31,28,44,1) 0%, rgba(146,141,171,1) 50%, rgba(31,28,44,1) 100%);
-$peachy: linear-gradient(45deg, rgba(65,94,249,1) 0%, rgba(248,71,110,1) 50%, rgba(65,94,249,1) 100%);
-$darkPurple: linear-gradient(45deg, rgba(51,0,27,1) 0%, rgba(255,0,132,1) 50%, rgba(51,0,27,1) 100%);
-$martini: linear-gradient(45deg, rgba(36,254,65,1) 0%, rgba(253,252,71,1) 50%, rgba(36,254,65,1) 100%);
+@import "globals";
 
 body{
   display: flex;
@@ -36,7 +9,7 @@ body{
   background-image: url($lightblueBg);
   background-size: contain;
 
-  .flex{
+  @mixin flex {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -44,50 +17,7 @@ body{
 
   .noclick{pointer-events: none;}
 
-  .msgDiv{
-    position: absolute;
-    align-self: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    background-image: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
-    z-index: 1;
-    transition: 1s;
-  }
-
-  .msgDiv p{
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    height: 100%;
-    margin: 0;
-  }
-
-  .msgButton{
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    cursor: pointer;
-    font-size: 17px;
-    font-family: $font;
-    background-image: $brownButtonColor;
-    color: black;
-    margin: 10px;
-    border: 2px solid black;
-    border-radius: 10px;
-    outline: none;
-  }
-
-  .msgButton:hover{
-    box-shadow: 0px 0px 12px 5px rgba(0,0,0,0.5);
-    transition: 0.1s;
-  }
-
-  .msgButton:active{
-    background-image: $brownButtonColorActive;
-  }
+  .invisible{opacity: 0; transition: 0.3s;}
 
   .blurredSpan{
     border-radius: 10px;
@@ -97,6 +27,8 @@ body{
   }
 
   .gameField{
+    @include flex;
+
     display: grid;
     justify-items: center;
     align-items: center;
@@ -107,109 +39,21 @@ body{
     border-radius: 10px;
     backdrop-filter: blur(1px);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
-  }
 
-  .gameField--4x4 {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-  }
-
-  .gameField--5x4 {
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-  }
-
-  .gameField--6x6 {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-  }
-
-  .card{
-    background-image: url($cardBg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 60px;
-    height: 97.5px;
-    border: 2px solid black;
-    border-radius: 10px;
-    transition: 0.2s;
-  }
-
-  @media screen and (max-width: 460px) {
-    .card {
-      width: 40px;
-      height: 65px;
+    &--4x4 {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
     }
-  }
 
-  .card1{background-image: $red}
-  .card2{background-image: $blue;}
-  .card3{background-image: $green;}
-  .card4{background-image: $pink;}
-  .card5{background-image: $purple;}
-  .card6{background-image: $yellow;}
-  .card7{background-image: $brown;}
-  .card8{background-image: $orange;}
-  .card9{background-image: $lightred;}
-  .card10{background-image: $peachy;}
-  .card11{background-image: $lightgray;}
-  .card12{background-image: $darkgray;}
-  .card13{background-image: $lightblue;}
-  .card14{background-image: $darkblue;}
-  .card15{background-image: $yellowBlue;}
-  .card16{background-image: $mojito;}
-  .card17{background-image: $martini;}
-  .card18{background-image: $darkPurple;}
+    &--5x4 {
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
 
-  .card:hover{
-    filter: brightness(90%);
-    box-shadow: 0px 0px 7px 4px rgba(0,0,0,0.5);
-  }
-
-  .card:active {
-    filter: brightness(70%);
-  }
-
-  .cardBack{
-    background-image: url($cardBg);
-    transform: rotateY(180deg);
-  }
-
-  .invisible{opacity: 0; transition: 0.3s;}
-
-  .fieldSelectorDiv{
-    width: 80%;
-    font-size: 17px;
-    font-family: inherit;
-    font-weight: bold;
-  }
-
-  .fieldSelector{
-    appearance: none;
-    cursor: pointer;
-    background-image: $brownButtonColorActive;
-    font-size: 17px;
-    font-family: inherit;
-    font-weight: bold;
-    border: 2px solid black;
-    border-radius: 5px;
-    height: 30px;
-    margin-top: 4px;
-    padding: 0 5px 0;
-    outline: none;
-  }
-
-  .fieldSelector option {
-    background-color: #874d45;
-  }
-
-  .fieldSelector:hover{
-    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
-    transition: 0.1s;
-  }
-
-  .fieldSelector:focus{
-    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
+    &--6x6 {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+    }
   }
 
   .button{
@@ -224,141 +68,51 @@ body{
     border-radius: 5px;
     transition: 0.1s;
     outline: none;
-  }
 
-  .button:hover{
-    box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
-  }
+    &:hover{
+      box-shadow: 0px 0px 7px 3px rgba(0,0,0,0.5);
+    }
 
-  .button:active{
-    background-image: $brownButtonColorActive;
-  }
-
-  .timeNturnsBlock{
-    font-weight: bold;
-    width: 90%;
-  }
-
-  .timeNturnsBlockButton{
-    font-size: 17px;
-    font-family: inherit;
-    font-weight: bold;
-    color: black;
-    width: 51px;
-    height: 18px;
-    margin: 7px 5px 10px;
-    border: 2px solid black;
-    border-radius: 5px;
-  }
-
-  .infoBlock{
-    text-align: center;
-    margin-top: 10px;
-    padding: 5px;
-    width: 100%;
-    border: 3px dashed white;
-    border-radius: 10px;
-    backdrop-filter: blur(1px);
-  }
-
-  .leaderboardBlock {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
-    margin-top: 20px;
-    width: 100%;
-    backdrop-filter: blur(1px);
-    border: 3px dashed white;
-    border-radius: 15px;
-  }
-
-  .leaderboard {
-    margin: 5px 0;
-    padding: 5px 5px 10px;
-    width: 220px;
-    height: 20px;
-    border-radius: 15px;
-    text-align: center;
-  }
-
-  .leaderboardWrap {
-    margin: 5px;
-  }
-
-  .size44 {
-    background: rgba(26, 83, 255, 0.2);
-  }
-
-  .size54 {
-    background: rgba(26, 83, 255, 0.4);
-  }
-
-  .size66 {
-    background: rgba(26, 83, 255, 0.6);
+    &:active{
+      background-image: $brownButtonColorActive;
+    }
   }
 
   .lineBreak {
     width: 100%;
   }
 
-  @media screen and (min-width: 1070px) {
-    .infoBlock {
-      text-align: left;
-      position: absolute;
-      width: 300px;
-      margin-top: 0px;
-      left: 0px;
-      top: 0px;
-      border-left: none;
-      border-top: none;
-      border-top-right-radius: 0px;
-      border-bottom-left-radius: 0px;
-      border-top-left-radius: 0px;
-    }
-  }
-
-  @media screen and (min-width: 935px) {
-    .leaderboardBlock {
-      position: absolute;
-      flex-direction: column;
-      width: 240px;
-      margin-top: 0px;
-      right: 0px;
-      top: 0px;
-      border-right: none;
-      border-top: none;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-top-left-radius: 0px;
-    }
-  }
-
   .saveLoadBlock {
     font-size: 14px;
     text-align: center;
   }
+
+  @import "messages";
+
+  @import "cards";
+
+  @import "mainMenu.scss";
+
+  @import "sideMenus";
 }
 
 ::-webkit-scrollbar {
   width: 10px;
-}
 
-::-webkit-scrollbar-track {
-  background: $scrollbarTrack;
-}
+  &-track {
+    background-color: $scrollbarTrack;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: $brownButtonColor;
-  border-radius: 5px;
-}
+  &-thumb {
+    background-color: $scrollbarThumb;
+    border-radius: 10px;
 
-::-webkit-scrollbar-thumb:hover {
-  background: $scrollbarThumbHover;
-}
+    &:hover {
+      background-color: darken($scrollbarThumb, 5%);
+    }
 
-::-webkit-scrollbar-thumb:active {
-  background: $brownButtonColor;
+    &:active {
+      background-color: darken($scrollbarThumb, 10%);
+    }
+  }
 }
