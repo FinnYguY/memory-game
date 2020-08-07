@@ -18,6 +18,9 @@ export function createHtml (selector, className, innerText, ...keysValues) {
 var classArrLength = 0;
 export function addCards (num) {
   let classArray = [];
+  let fieldSelector = document.querySelector('.field-selector-block__selector');
+  let field = document.querySelector('.gamefield');
+
   for(let i = 1; i < 19; i++) {
     classArray.push(`card${i}`,`card${i}`);
   }
@@ -26,7 +29,7 @@ export function addCards (num) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
 
-  switch (document.getElementsByClassName('field-selector-block__selector')[0].value) {
+  switch (fieldSelector.value) {
     case constants.sizes.size44:
       classArray.length = 16;
       classArrLength = classArray.length;
@@ -43,13 +46,13 @@ export function addCards (num) {
 
   for(let i = 0; i < classArrLength; i++){
     let random = getRndInt(0, classArray.length);
-    document.getElementsByClassName('gamefield')[0].append(createHtml('div', `card ${classArray[random]} card_back`));
+    field.append(createHtml('div', `card ${classArray[random]} card_back`));
     classArray.splice(random, 1);
   }
 }
 
 export function stopTurns () {
-  document.getElementsByClassName('turnsCounter')[0].value = '0';
+  document.querySelector('.turnsCounter').value = '0';
 }
 
 //toggling card face up/down
@@ -59,15 +62,15 @@ export function toggleCard (...cards) {
   }
 }
 
-export function showMsg (msg) {
-  document.getElementsByClassName('gamefield')[0].prepend(createHtml('div', 'msg-block'));
-  document.getElementsByClassName('msg-block')[0].prepend(createHtml('p', '', msg));
+export function showMsg (text) {
+  document.querySelector('.gamefield').prepend(createHtml('div', 'msg-block'));
+  document.querySelector('.msg-block').prepend(createHtml('p', '', text));
 };
 
-export function showButtonMsg (msg, buttonText, action) {
-  showMsg(msg);
-  document.getElementsByClassName('msg-block')[0].append(createHtml('button', 'msg-block__button', 'Play Again'));
-  document.getElementsByClassName('msg-block__button')[0].addEventListener('click', action);
+export function showButtonMsg (text, buttonText, action) {
+  showMsg(text);
+  document.querySelector('.msg-block').append(createHtml('button', 'msg-block__button', 'Play Again'));
+  document.querySelector('.msg-block__button').addEventListener('click', action);
 }
 
 var emptyCardNumber = 0;
@@ -84,45 +87,41 @@ export function compareCards (card1, card2) {
 }
 
 export function changeFieldSize () {
-  let elems, field, card;
+  let selector, field, card;
   isLoadedGame = false;
 
-  document.getElementsByClassName('gamefield')[0].remove();
+  field = document.querySelector('.gamefield');
+  field.innerHTML = '';
+  selector = document.querySelector('.field-selector-block__selector');
 
-  elems = document.getElementsByClassName('field-selector-block__selector');
-  Array.from(elems).forEach((el) => {
-    field = document.createElement('div');
-    field.className = 'gamefield';
-    document.getElementsByClassName('time-n-turns-block')[0].after(field);
+  clearStopwatch();
+  clearTimeout(clocktimer);
+  init = 0;
+  stopTurns();
+  isFirstClick = true;
+  emptyCardNumber = 0;
+  faceUpCounter = 0;
 
-    clearStopwatch();
-    clearTimeout(clocktimer);
-    init = 0;
-    stopTurns();
-    isFirstClick = true;
-    emptyCardNumber = 0;
+  showMsg('<b>Shuffling...</b>');
+  setTimeout(function () {
+    document.querySelector('.msg-block').remove();
+  }, 1000);
 
-    showMsg('<b>Shuffling...</b>');
-    setTimeout(function () {
-      document.getElementsByClassName('msg-block')[0].remove();
-    }, 1000);
-
-    switch (el.value) {
-      case constants.sizes.size44:
-        field.classList.add(constants.selectors.gamefield44);
-        addCards(16);
-        break;
-      case constants.sizes.size54:
-        field.classList.add(constants.selectors.gamefield54);
-        addCards(20);
-        break;
-      case constants.sizes.size66:
-        field.classList.add(constants.selectors.gamefield66);
-        addCards(36);
-        break;
-      default:
-    }
-  });
+  switch (selector.value) {
+    case constants.sizes.size44:
+      field.classList.add(constants.selectors.gamefield44);
+      addCards(16);
+      break;
+    case constants.sizes.size54:
+      field.classList.add(constants.selectors.gamefield54);
+      addCards(20);
+      break;
+    case constants.sizes.size66:
+      field.classList.add(constants.selectors.gamefield66);
+      addCards(36);
+      break;
+    default:
+  }
 }
 
 let faceUpCounter = 0;
@@ -130,7 +129,7 @@ let faceUpCard1;
 var isFirstClick = true;
 let isLoadedGame = false;
 export const callback = function(mutationsList, observer) {
-  document.getElementsByClassName('gamefield')[0].onclick = function (event) {
+  document.querySelector('.gamefield').onclick = function (event) {
     let target = event.target;
     if(!target.classList.contains('card')) return;
     toggleCard(target);
@@ -145,19 +144,18 @@ export const callback = function(mutationsList, observer) {
       target.classList.add('noclick');
       //if two cards are faced up
       if (faceUpCounter >= 2) {
-        document.getElementsByClassName('gamefield')[0].classList.add('noclick');
-        setTimeout(() => {document.getElementsByClassName('gamefield')[0].classList.remove('noclick')}, 200);
+        document.querySelector('.gamefield').classList.add('noclick');
+        setTimeout(() => {document.querySelector('.gamefield').classList.remove('noclick')}, 200);
         if (!isLoadedGame) {
-          document.getElementsByClassName('turnsCounter')[0].value++;
+          document.querySelector('.turnsCounter').value++;
         }
         compareCards(target, faceUpCard1);
 
-        let cards = document.getElementsByClassName('card');
         if (emptyCardNumber == classArrLength) {
-          let time = document.getElementsByClassName('stopwatch')[0].value;
-          let turns = document.getElementsByClassName('turnsCounter')[0].value;
+          let time = document.querySelector('.stopwatch').value;
+          let turns = document.querySelector('.turnsCounter').value;
 
-          let fieldSize = document.getElementsByClassName('field-selector-block__selector')[0].value;
+          let fieldSize = document.querySelector('.field-selector-block__selector').value;
           let result = {
             'time': time,
             'turns': turns,
@@ -219,34 +217,34 @@ export function isFirstBetter (recent, previous) {
 
 export function changeLeadResult (result) {
   localStorage.removeItem(result.size);
-  document.getElementsByClassName(`size${result.size}`)[0].innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
+  document.getElementsByClassName(`size${result.size}`).innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
   localStorage.setItem(result.size, JSON.stringify(result));
 }
 
 export function showLeaderboard () {
   if (localStorage.getItem(constants.sizes.size44)) {
     let res1 = JSON.parse(localStorage.getItem(constants.sizes.size44));
-    document.getElementsByClassName('size44')[0].innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
+    document.querySelector('.size44').innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
   }
   if (localStorage.getItem(constants.sizes.size54)) {
     let res2 = JSON.parse(localStorage.getItem(constants.sizes.size54));
-    document.getElementsByClassName('size54')[0].innerHTML = `<b>Time:</b> ${res2.time}, <b>Turns:</b> ${res2.turns} `;
+    document.querySelector('.size54').innerHTML = `<b>Time:</b> ${res2.time}, <b>Turns:</b> ${res2.turns} `;
   }
   if (localStorage.getItem(constants.sizes.size66)) {
     let res3 = JSON.parse(localStorage.getItem(constants.sizes.size66));
-    document.getElementsByClassName('size66')[0].innerHTML = `<b>Time:</b> ${res3.time}, <b>Turns:</b> ${res3.turns} `;
+    document.querySelector('.size66').innerHTML = `<b>Time:</b> ${res3.time}, <b>Turns:</b> ${res3.turns} `;
   }
 }
 
 export function saveGame (time, turns) {
-  let saveTime = document.getElementsByClassName('stopwatch')[0].value;
-  let saveTurns = document.getElementsByClassName('turnsCounter')[0].value;
-  let saveFieldSize = document.getElementsByClassName('field-selector-block__selector')[0].value;
-  let currentField = document.getElementsByClassName('gamefield')[0].innerHTML;
+  let saveTime = document.querySelector('.stopwatch').value;
+  let saveTurns = document.querySelector('.turnsCounter').value;
+  let saveFieldSize = document.querySelector('.field-selector-block__selector').value;
+  let currentField = document.querySelector('.gamefield').innerHTML;
 
   showMsg('<b>Saving...</b>');
   setTimeout(function () {
-    document.getElementsByClassName('msg-block')[0].remove();
+    document.querySelector('.msg-block').remove();
   }, 1000);
 
   clearStopwatch();
@@ -255,7 +253,7 @@ export function saveGame (time, turns) {
   stopTurns();
   isFirstClick = true;
   emptyCardNumber = 0;
-  Array.from(document.getElementsByClassName('card')).forEach((item) => {
+  Array.from(document.querySelector('.card')).forEach((item) => {
     if (item.classList.contains('invisible')) {
       emptyCardNumber += 1;
     }
@@ -273,23 +271,23 @@ export function loadGame (save) {
   if (!save) {
     showMsg('<b>No saved games found :(</b>');
     setTimeout(function () {
-      document.getElementsByClassName('msg-block')[0].remove();
+      document.querySelector('.msg-block').remove();
     }, 1000);
     return;
   }
 
   let gameSave = JSON.parse(save);
 
-  document.getElementsByClassName('field-selector-block__selector')[0].value = gameSave.size;
+  document.querySelector('.field-selector-block__selector').value = gameSave.size;
   changeFieldSize();
-  document.getElementsByClassName('msg-block')[0].innerHTML = '<p><b>Loading...</b></p>';
+  document.querySelector('.msg-block').innerHTML = '<p><b>Loading...</b></p>';
 
   //loading saved field
   setTimeout(function () {
-    document.getElementsByClassName('gamefield')[0].innerHTML = gameSave.field;
+    document.querySelector('.gamefield').innerHTML = gameSave.field;
     emptyCardNumber = 0;
     isFirstClick = false;
-    Array.from(document.getElementsByClassName('card')).forEach((item) => {
+    Array.from(document.querySelector('.card')).forEach((item) => {
       if (item.classList.contains('invisible')) {
         emptyCardNumber += 1;
       }
@@ -320,7 +318,7 @@ export function clearStopwatch () {
   ms = 0;
   init = 0;
   readout = '00:00';
-  document.getElementsByClassName('stopwatch')[0].value = readout;
+  document.querySelector('.stopwatch').value = readout;
 }
 
 export function startStopwatch () {
@@ -364,7 +362,7 @@ export function startStopwatch () {
     dm = '00';
   }
   readout = dm + ':' + ds;
-  document.getElementsByClassName('stopwatch')[0].value = readout;
+  document.querySelector('.stopwatch').value = readout;
   clocktimer = setTimeout(startStopwatch, 1);
 }
 
