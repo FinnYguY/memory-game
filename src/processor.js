@@ -91,7 +91,9 @@ export function changeFieldSize () {
   isLoadedGame = false;
 
   field = document.querySelector('.gamefield');
-  field.innerHTML = '';
+  field.remove();
+  field = createHtml('div', 'gamefield');
+  document.querySelector('.time-n-turns-block').after(field);
   selector = document.querySelector('.field-selector-block__selector');
 
   clearStopwatch();
@@ -129,7 +131,12 @@ let faceUpCard1;
 var isFirstClick = true;
 let isLoadedGame = false;
 export const callback = function(mutationsList, observer) {
-  document.querySelector('.gamefield').onclick = function (event) {
+  let gamefield = document.querySelector('.gamefield');
+  let stopwatch = document.querySelector('.stopwatch');
+  let turnsCounter = document.querySelector('.turnsCounter');
+  let fieldSizeSelector = document.querySelector('.field-selector-block__selector');
+
+  gamefield.onclick = function (event) {
     let target = event.target;
     if(!target.classList.contains('card')) return;
     toggleCard(target);
@@ -144,18 +151,17 @@ export const callback = function(mutationsList, observer) {
       target.classList.add('noclick');
       //if two cards are faced up
       if (faceUpCounter >= 2) {
-        document.querySelector('.gamefield').classList.add('noclick');
-        setTimeout(() => {document.querySelector('.gamefield').classList.remove('noclick')}, 200);
+        gamefield.classList.add('noclick');
+        setTimeout(() => {gamefield.classList.remove('noclick')}, 200);
         if (!isLoadedGame) {
-          document.querySelector('.turnsCounter').value++;
+          turnsCounter.value++;
         }
         compareCards(target, faceUpCard1);
 
         if (emptyCardNumber == classArrLength) {
-          let time = document.querySelector('.stopwatch').value;
-          let turns = document.querySelector('.turnsCounter').value;
-
-          let fieldSize = document.querySelector('.field-selector-block__selector').value;
+          let time = stopwatch.value;
+          let turns = turnsCounter.value;
+          let fieldSize = fieldSizeSelector.value;
           let result = {
             'time': time,
             'turns': turns,
@@ -236,9 +242,7 @@ export function showLeaderboard () {
   }
 }
 
-export function saveGame (time, turns) {
-  let saveTime = document.querySelector('.stopwatch').value;
-  let saveTurns = document.querySelector('.turnsCounter').value;
+export function saveGame () {
   let saveFieldSize = document.querySelector('.field-selector-block__selector').value;
   let currentField = document.querySelector('.gamefield').innerHTML;
 
@@ -253,7 +257,7 @@ export function saveGame (time, turns) {
   stopTurns();
   isFirstClick = true;
   emptyCardNumber = 0;
-  Array.from(document.querySelector('.card')).forEach((item) => {
+  Array.from(document.querySelectorAll('.card')).forEach((item) => {
     if (item.classList.contains('invisible')) {
       emptyCardNumber += 1;
     }
@@ -277,17 +281,19 @@ export function loadGame (save) {
   }
 
   let gameSave = JSON.parse(save);
+  let fieldSizeSelector = document.querySelector('.field-selector-block__selector');
 
-  document.querySelector('.field-selector-block__selector').value = gameSave.size;
+  fieldSizeSelector.value = gameSave.size;
   changeFieldSize();
   document.querySelector('.msg-block').innerHTML = '<p><b>Loading...</b></p>';
 
   //loading saved field
   setTimeout(function () {
-    document.querySelector('.gamefield').innerHTML = gameSave.field;
+    let field = document.querySelector('.gamefield');
+    field.innerHTML = gameSave.field;
     emptyCardNumber = 0;
     isFirstClick = false;
-    Array.from(document.querySelector('.card')).forEach((item) => {
+    Array.from(document.querySelectorAll('.card')).forEach((item) => {
       if (item.classList.contains('invisible')) {
         emptyCardNumber += 1;
       }
