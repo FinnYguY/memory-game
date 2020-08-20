@@ -1,83 +1,70 @@
 const constants = require('.\\constants.js');
 
-//create html element with given attributes
-export function createHtml (selector, className, innerText, ...keysValues) {
-  let elem = document.createElement(selector);
-  className == undefined ? elem.className = '' : elem.className = className;
-  innerText == undefined ? elem.innerHTML = '' : elem.innerHTML = innerText;
-  if (keysValues.length != 0){
+// create html element with given attributes
+export function createHtml(selector, className, innerText, ...keysValues) {
+  const elem = document.createElement(selector);
+  className === undefined ? elem.className = '' : elem.className = className;
+  innerText === undefined ? elem.innerHTML = '' : elem.innerHTML = innerText;
+  if (keysValues.length !== 0) {
     let i = 1;
     while (i < keysValues.length) {
-      elem.setAttribute(keysValues[i-1], keysValues[i]);
+      elem.setAttribute(keysValues[i - 1], keysValues[i]);
       i += 2;
     }
   }
   return elem;
-};
+}
 
-var classArrLength = 0;
-export function addCards (num) {
-  let classArray = [];
-  let fieldSelector = document.querySelector('.field-selector-block__selector');
-  let field = document.querySelector('.gamefield');
+let classArrLength = 0;
+export function addCards(num) {
+  const classArray = [];
+  const field = document.querySelector('.gamefield');
 
-  for(let i = 1; i < 19; i++) {
-    classArray.push(`card${i}`,`card${i}`);
+  for (let i = 1; i < 19; i += 1) {
+    classArray.push(`card${i}`, `card${i}`);
   }
 
   function getRndInt(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  switch (fieldSelector.value) {
-    case constants.sizes.size44:
-      classArray.length = 16;
-      classArrLength = classArray.length;
-      break;
-    case constants.sizes.size54:
-      classArray.length = 20;
-      classArrLength = classArray.length;
-      break;
-    case constants.sizes.size66:
-      classArray.length = 36;
-      classArrLength = classArray.length;
-      break;
-  }
+  classArray.length = num;
+  classArrLength = classArray.length;
 
-  for(let i = 0; i < classArrLength; i++){
-    let random = getRndInt(0, classArray.length);
+  for (let i = 0; i < classArrLength; i += 1) {
+    const random = getRndInt(0, classArray.length);
     field.append(createHtml('div', `card ${classArray[random]} card_back`));
     classArray.splice(random, 1);
   }
 }
 
-export function stopTurns () {
+export function stopTurns() {
   document.querySelector('.turnsCounter').value = '0';
 }
 
-//toggling card face up/down
-export function toggleCard (...cards) {
-  for(let card of cards){
+// toggling card face up/down
+export function toggleCard(...cards) {
+  for (const card of cards) {
     card.classList.toggle('card_back');
   }
 }
 
-export function showMsg (text) {
+export function showMsg(text) {
   document.querySelector('.gamefield').prepend(createHtml('div', 'msg-block'));
   document.querySelector('.msg-block').prepend(createHtml('p', '', text));
-};
+}
 
-export function showButtonMsg (text, buttonText, action) {
+export function showButtonMsg(text, buttonText, action) {
   showMsg(text);
   document.querySelector('.msg-block').append(createHtml('button', 'msg-block__button', 'Play Again'));
   document.querySelector('.msg-block__button').addEventListener('click', action);
 }
 
-var emptyCardNumber = 0;
-export function compareCards (card1, card2) {
-  if (card1.classList[1] == card2.classList[1]) {
-    setTimeout(() => {card1.classList.add('invisible', 'noclick');}, 300);
-    setTimeout(() => {card2.classList.add('invisible', 'noclick');}, 300);
+let emptyCardNumber = 0;
+export function compareCards(card1, card2) {
+  if (card1.classList[1] === card2.classList[1]) {
+    setTimeout(() => { card1.classList.add('invisible', 'noclick'); }, 300);
+    setTimeout(() => { card2.classList.add('invisible', 'noclick'); }, 300);
     emptyCardNumber += 2;
   } else {
     card1.classList.remove('noclick');
@@ -86,8 +73,9 @@ export function compareCards (card1, card2) {
   }
 }
 
-export function changeFieldSize () {
-  let selector, field, card;
+export function changeFieldSize() {
+  let selector;
+  let field;
   isLoadedGame = false;
 
   field = document.querySelector('.gamefield');
@@ -105,7 +93,7 @@ export function changeFieldSize () {
   faceUpCounter = 0;
 
   showMsg('<b>Shuffling...</b>');
-  setTimeout(function () {
+  setTimeout(() => {
     document.querySelector('.msg-block').remove();
   }, 1000);
 
@@ -128,13 +116,13 @@ export function changeFieldSize () {
 
 let faceUpCounter = 0;
 let faceUpCard1;
-var isFirstClick = true;
+let isFirstClick = true;
 let isLoadedGame = false;
-export const callback = function(mutationsList, observer) {
-  let gamefield = document.querySelector('.gamefield');
-  let stopwatch = document.querySelector('.stopwatch');
-  let turnsCounter = document.querySelector('.turnsCounter');
-  let fieldSizeSelector = document.querySelector('.field-selector-block__selector');
+export const callback = function () {
+  const gamefield = document.querySelector('.gamefield');
+  const stopwatch = document.querySelector('.stopwatch');
+  const turnsCounter = document.querySelector('.turnsCounter');
+  const fieldSizeSelector = document.querySelector('.field-selector-block__selector');
 
   gamefield.onclick = function (event) {
     let target = event.target;
@@ -149,46 +137,47 @@ export const callback = function(mutationsList, observer) {
     if (!target.classList.contains('card_back')) {
       faceUpCounter += 1;
       target.classList.add('noclick');
-      //if two cards are faced up
+      // if two cards are faced up
       if (faceUpCounter >= 2) {
         gamefield.classList.add('noclick');
-        setTimeout(() => {gamefield.classList.remove('noclick')}, 200);
+        setTimeout(() => { gamefield.classList.remove('noclick')}, 200);
         if (!isLoadedGame) {
-          turnsCounter.value++;
+          turnsCounter.value ++;
         }
         compareCards(target, faceUpCard1);
 
-        if (emptyCardNumber == classArrLength) {
-          let time = stopwatch.value;
-          let turns = turnsCounter.value;
-          let fieldSize = fieldSizeSelector.value;
-          let result = {
-            'time': time,
-            'turns': turns,
-            'size': fieldSize,
-          }
+        if (emptyCardNumber === classArrLength) {
+          const time = stopwatch.value;
+          const turns = turnsCounter.value;
+          const fieldSize = fieldSizeSelector.value;
+          const result = {
+            time,
+            turns,
+            size: fieldSize,
+          };
 
           if (isLoadedGame) {
-            setTimeout(function () {
-              showButtonMsg(`<b>Well... <br> You'd better play without saving and loading... <br></b> Statistics are nor recorded for loaded games`, 'Play Again', changeFieldSize);
+            setTimeout(() => {
+              showButtonMsg('<b>Well... <br> You\'d better play without saving and loading... <br></b> Statistics are nor recorded for loaded games', 'Play Again', changeFieldSize);
             }, 300);
           }
 
-          //change HTML and localStorage if new result is better
+          // change HTML and localStorage if new result is better
           if (isFirstBetter(result, localStorage.getItem(result.size))) {
-            setTimeout(function () {
+            setTimeout(() => {
               showButtonMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
             }, 300);
             changeLeadResult(result);
-          }
-          else {
-            setTimeout(function () {
+          } else {
+            setTimeout(() => {
               showButtonMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
             }, 300);
           }
 
-          startStop();
-          stopTurns();
+          if (!isLoadedGame) {
+            startStop();
+            stopTurns();
+          }
           emptyCardNumber = 0;
         }
 
@@ -197,57 +186,57 @@ export const callback = function(mutationsList, observer) {
       }
       faceUpCard1 = target;
     }
-  }
+  };
 };
 
-export function isFirstBetter (recent, previous) {
-  let recentTime = Number(recent.time.replace(':', ''));
-  let recentRatio = recentTime + recent.turns;
+export function isFirstBetter(recent, previous) {
+  const recentTime = Number(recent.time.replace(':', ''));
+  const recentRatio = recentTime + recent.turns;
 
-  //make recent better if there is no previous
+  // make recent better if there is no previous
   if (!localStorage.getItem(recent.size)) {
     return 1;
   }
 
-  let previousTime = Number(JSON.parse(previous).time.replace(':', ''));
-  let previousRatio = previousTime + JSON.parse(previous).turns;
+  const previousTime = Number(JSON.parse(previous).time.replace(':', ''));
+  const previousRatio = previousTime + JSON.parse(previous).turns;
 
-  //if new result is worse than saved one
+  // if new result is worse than saved one
   if (recentRatio >= previousRatio) {
     return 0;
   }
 
-  //if new result is better than saved one
+  // if new result is better than saved one
   return 1;
 }
 
-export function changeLeadResult (result) {
+export function changeLeadResult(result) {
   localStorage.removeItem(result.size);
   document.getElementsByClassName(`size${result.size}`).innerHTML = `<b>Time:</b> ${result.time}, <b>Turns:</b> ${result.turns} `;
   localStorage.setItem(result.size, JSON.stringify(result));
 }
 
-export function showLeaderboard () {
+export function showLeaderboard() {
   if (localStorage.getItem(constants.sizes.size44)) {
-    let res1 = JSON.parse(localStorage.getItem(constants.sizes.size44));
+    const res1 = JSON.parse(localStorage.getItem(constants.sizes.size44));
     document.querySelector('.size44').innerHTML = `<b>Time:</b> ${res1.time}, <b>Turns:</b> ${res1.turns} `;
   }
   if (localStorage.getItem(constants.sizes.size54)) {
-    let res2 = JSON.parse(localStorage.getItem(constants.sizes.size54));
+    const res2 = JSON.parse(localStorage.getItem(constants.sizes.size54));
     document.querySelector('.size54').innerHTML = `<b>Time:</b> ${res2.time}, <b>Turns:</b> ${res2.turns} `;
   }
   if (localStorage.getItem(constants.sizes.size66)) {
-    let res3 = JSON.parse(localStorage.getItem(constants.sizes.size66));
+    const res3 = JSON.parse(localStorage.getItem(constants.sizes.size66));
     document.querySelector('.size66').innerHTML = `<b>Time:</b> ${res3.time}, <b>Turns:</b> ${res3.turns} `;
   }
 }
 
-export function saveGame () {
-  let saveFieldSize = document.querySelector('.field-selector-block__selector').value;
-  let currentField = document.querySelector('.gamefield').innerHTML;
+export function saveGame() {
+  const saveFieldSize = document.querySelector('.field-selector-block__selector').value;
+  const currentField = document.querySelector('.gamefield').innerHTML;
 
   showMsg('<b>Saving...</b>');
-  setTimeout(function () {
+  setTimeout(() => {
     document.querySelector('.msg-block').remove();
   }, 1000);
 
@@ -263,33 +252,33 @@ export function saveGame () {
     }
   });
 
-  let savedGame = {
-    'size': saveFieldSize,
-    'field': currentField,
-  }
+  const savedGame = {
+    size: saveFieldSize,
+    field: currentField,
+  };
 
   localStorage.setItem('gameSave', JSON.stringify(savedGame));
 }
 
-export function loadGame (save) {
+export function loadGame(save) {
   if (!save) {
     showMsg('<b>No saved games found :(</b>');
-    setTimeout(function () {
+    setTimeout(() => {
       document.querySelector('.msg-block').remove();
     }, 1000);
     return;
   }
 
-  let gameSave = JSON.parse(save);
-  let fieldSizeSelector = document.querySelector('.field-selector-block__selector');
+  const gameSave = JSON.parse(save);
+  const fieldSizeSelector = document.querySelector('.field-selector-block__selector');
 
   fieldSizeSelector.value = gameSave.size;
   changeFieldSize();
   document.querySelector('.msg-block').innerHTML = '<p><b>Loading...</b></p>';
 
-  //loading saved field
-  setTimeout(function () {
-    let field = document.querySelector('.gamefield');
+  // loading saved field
+  setTimeout(() => {
+    const field = document.querySelector('.gamefield');
     field.innerHTML = gameSave.field;
     emptyCardNumber = 0;
     isFirstClick = false;
@@ -302,19 +291,22 @@ export function loadGame (save) {
   isLoadedGame = true;
 }
 
-//Stopwatch initiaization and functions
-var base = 60;
-var clocktimer, dateObj, dh, dm, ds, ms;
-var readout = '';
-var h = 1,
-  m = 1,
-  tm = 1,
-  s = 0,
-  ts = 0,
-  ms = 0,
-  init = 0;
+// Stopwatch initiaization and functions
+const base = 60;
+let clocktimer;
+let dateObj;
+let dm;
+let ds;
+let readout = '';
+let h = 1;
+let m = 1;
+let tm = 1;
+let s = 0;
+let ts = 0;
+let ms = 0;
+let init = 0;
 
-export function clearStopwatch () {
+export function clearStopwatch() {
   clearTimeout(clocktimer);
   h = 1;
   m = 1;
@@ -327,9 +319,9 @@ export function clearStopwatch () {
   document.querySelector('.stopwatch').value = readout;
 }
 
-export function startStopwatch () {
-  var cdateObj = new Date();
-  var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
+export function startStopwatch() {
+  let cdateObj = new Date();
+  let t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
   if (t > 999) {
     s++;
   }
@@ -372,8 +364,8 @@ export function startStopwatch () {
   clocktimer = setTimeout(startStopwatch, 1);
 }
 
-export function startStop () {
-  if (init == 0) {
+export function startStop() {
+  if (init === 0) {
     clearStopwatch();
     dateObj = new Date();
     startStopwatch();
