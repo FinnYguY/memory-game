@@ -1,4 +1,5 @@
 const constants = require('.\\constants.js');
+import textMsg from '.\\message.js';
 
 // create html element with given attributes
 export function createHtml(selector, className, innerText, ...keysValues) {
@@ -49,15 +50,9 @@ export function toggleCard(...cards) {
   }
 }
 
-export function showMsg(text) {
-  document.querySelector('.gamefield').prepend(createHtml('div', 'msg-block'));
-  document.querySelector('.msg-block').prepend(createHtml('p', '', text));
-}
-
-export function showButtonMsg(text, buttonText, action) {
-  showMsg(text);
-  document.querySelector('.msg-block').append(createHtml('button', 'msg-block__button', 'Play Again'));
-  document.querySelector('.msg-block__button').addEventListener('click', action);
+export function addButton(style, text, action) {
+  document.querySelector('.msg-block').append(createHtml('button', `msg-block__button ${style}`, text));
+  document.querySelector(`.${style}`).addEventListener('click', action);
 }
 
 let emptyCardNumber = 0;
@@ -92,9 +87,9 @@ export function changeFieldSize() {
   emptyCardNumber = 0;
   faceUpCounter = 0;
 
-  showMsg('<b>Shuffling...</b>');
-  setTimeout(() => {
-    document.querySelector('.msg-block').remove();
+  textMsg.show('<b>Shuffling...</b>');
+  setTimeout(function () {
+    textMsg.hide();
   }, 1000);
 
   switch (selector.value) {
@@ -158,19 +153,25 @@ export const callback = function () {
 
           if (isLoadedGame) {
             setTimeout(() => {
-              showButtonMsg('<b>Well... <br> You\'d better play without saving and loading... <br></b> Statistics are nor recorded for loaded games', 'Play Again', changeFieldSize);
+              textMsg.show('<b>Well... <br> You\'d better play without saving and loading... <br></b> Statistics are nor recorded for loaded games');
+              addButton('close', 'Close', () => {textMsg.hide()});
+              addButton('playAgain', 'Play Again', changeFieldSize);
             }, 300);
           }
 
           // change HTML and localStorage if new result is better
           if (isFirstBetter(result, localStorage.getItem(result.size))) {
             setTimeout(() => {
-              showButtonMsg(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
+              textMsg.show(`<b>Congratulations! <br> New Record! <br></b>You paired all the cards in ${time} and ${turns} turns <br>`);
+              addButton('close', 'Close', () => {textMsg.hide()});
+              addButton('playAgain', 'Play Again', changeFieldSize);
             }, 300);
             changeLeadResult(result);
           } else {
             setTimeout(() => {
-              showButtonMsg(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`, 'Play Again', changeFieldSize);
+              textMsg.show(`<b>Good, But You Gotta Try Harder To Beat The Record! <br> </b>You paired all the cards in ${time} and ${turns} turns <br>`);
+              addButton('close', 'Close', () => {textMsg.hide()});
+              addButton('playAgain', 'Play Again', changeFieldSize);
             }, 300);
           }
 
@@ -235,9 +236,9 @@ export function saveGame() {
   const saveFieldSize = document.querySelector('.field-selector-block__selector').value;
   const currentField = document.querySelector('.gamefield').innerHTML;
 
-  showMsg('<b>Saving...</b>');
+  textMsg.show('<b>Saving...</b>');
   setTimeout(() => {
-    document.querySelector('.msg-block').remove();
+    textMsg.hide();
   }, 1000);
 
   clearStopwatch();
@@ -262,9 +263,9 @@ export function saveGame() {
 
 export function loadGame(save) {
   if (!save) {
-    showMsg('<b>No saved games found :(</b>');
+    textMsg.show('<b>No saved games found :(</b>');
     setTimeout(() => {
-      document.querySelector('.msg-block').remove();
+      textMsg.hide();
     }, 1000);
     return;
   }

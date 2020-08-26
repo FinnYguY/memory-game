@@ -1,12 +1,23 @@
-.msg-block{
-  position: absolute;
-  align-self: center;
+.msg-wrapper {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  backdrop-filter: blur(3px);
+  z-index: 10;
+}
+
+.msg-block{
+  position: absolute;
+  top: 0;
+  width: 300px;
+  margin: 20px;
+  border-radius: 20px;
   background-image: radial-gradient(circle, rgba(154,237,249,1) 35%, rgba(87,157,187,1) 100%);
-  z-index: 1;
-  transition: 1s;
+  z-index: 9;
 }
 
 .msg-block p{
@@ -20,9 +31,7 @@
 }
 
 .msg-block__button{
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+  display: flex;
   cursor: pointer;
   font-size: 17px;
   font-family: $font;
