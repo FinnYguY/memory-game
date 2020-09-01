@@ -1,3 +1,3 @@
 # memory-game
 Меньшиков Артем Вадимович
-Check "intro" branch and "intro" -> "master" pull request
+Check "develop" branch and "develop" -> "master" pull request
