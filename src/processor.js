@@ -137,7 +137,7 @@ export const callback = function () {
         gamefield.classList.add('noclick');
         setTimeout(() => { gamefield.classList.remove('noclick')}, 200);
         if (!isLoadedGame) {
-          turnsCounter.value ++;
+          turnsCounter.value++;
         }
         compareCards(target, faceUpCard1);
 
